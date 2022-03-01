@@ -100,6 +100,10 @@
         <li class="button">
         <button type="submit">Registrar usuario</button>
         </li>
+        
+        <li>
+            <a href="login.jsp">Have an account</a>
+        </li>
 
        </form>
     </ul>
