@@ -86,28 +86,30 @@ public class servletUsuarios extends HttpServlet {
         pwriter.print("</html>");
     }
     
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            
-            String user = request.getParameter("user");
-            String passwd = request.getParameter("passwd");
-            
-            String result = new usuario().queryTest(user, passwd);                        
-            
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet servletEjemplo</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1> " + result + " </h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+    public void processPostRequest(HttpServletRequest req,HttpServletResponse res) throws IOException,ServletException{
+        res.setContentType("text/html");
+        
+        String user_name        = req.getParameter("user_name");
+        String user_surnames    = req.getParameter("user_surnames");
+        String user_email       = req.getParameter("user_email");
+        String user_nick        = req.getParameter("user_nick");
+        String user_pass1       = req.getParameter("user_password");
+        String user_pass2       = req.getParameter("user_password2");
+
+        PrintWriter pwriter=res.getWriter();
+        pwriter.print("<html>");
+        pwriter.print("<body>");
+        pwriter.print("<h2>Generic Servlet Example</h2>");
+        pwriter.print(user_name + "<br>");
+        pwriter.print(user_surnames + "<br>");
+        pwriter.print(user_email + "<br>");
+        pwriter.print(user_nick + "<br>");
+        pwriter.print(user_pass1 + "<br>");
+        pwriter.print(user_pass2 + "<br>");
+        pwriter.print("</body>");
+        pwriter.print("</html>");
     }
+
     
     // =================================
     // =========== DEFAULT =============
@@ -140,13 +142,13 @@ public class servletUsuarios extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    /*
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        processPostRequest(request, response);
     }
-    */
+    
 
     /**
      * Returns a short description of the servlet.

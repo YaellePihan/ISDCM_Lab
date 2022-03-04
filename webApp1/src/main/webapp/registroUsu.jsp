@@ -65,7 +65,7 @@
         }
     </style>
 
-    <form action="/isdcm-lab1-form" method="post">
+    <form action="servletUsuarios" method="Post"> <!-- action="/isdcm-lab1-form" -->
     <ul>
         <li>
         <label for="name">Nombre:</label>
@@ -105,10 +105,7 @@
         <a href="login.jsp" method="POST">Have an account</a>
         </li>
         
-        <a href="servletUsuarios"> Click to use servlet processRequest </a>
-        <br>
-        <a href="servletUsuarios" method="Post"> Click to use servlet POST </a>
-
+        <a href="servletUsuarios"> Click to use servlet doGet </a>
        </form>
     </ul>
 </body>
