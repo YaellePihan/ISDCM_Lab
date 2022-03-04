@@ -102,8 +102,12 @@
         </li>
         
         <li>
-            <a href="login.jsp">Have an account</a>
+        <a href="login.jsp" method="POST">Have an account</a>
         </li>
+        
+        <a href="servletUsuarios"> Click to use servlet processRequest </a>
+        <br>
+        <a href="servletUsuarios" method="Post"> Click to use servlet POST </a>
 
        </form>
     </ul>
