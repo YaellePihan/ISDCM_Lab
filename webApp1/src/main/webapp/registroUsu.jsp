@@ -38,12 +38,12 @@
 
         <li>
         <label for="password">Contraseña:</label>
-        <input type="text" id="password" name="user_password">
+        <input type="password" id="password" name="user_password">
         </li>
 
         <li>
         <label for="password2">Repetir Contraseña:</label>
-        <input type="text" id="userpassword2" name="user_password2">
+        <input type="password" id="userpassword2" name="user_password2">
         </li>
 
         <li class="button">

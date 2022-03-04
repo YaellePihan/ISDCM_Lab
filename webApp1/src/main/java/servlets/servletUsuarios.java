@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import usuario.usuario;
+
 /**
  *
  * @author alumne
@@ -77,21 +79,35 @@ public class servletUsuarios extends HttpServlet {
         pwriter.print("</html>");
         */
         
-        // Compare if the 2 passwords are the same
-        if (user_pass1.compareTo(user_pass2) == 0)
+        // Compare if the 2 passwords are the same or if is null
+        if (user_pass1.compareTo(user_pass2) == 0 && !user_pass1.isEmpty())
         {
-            // Check if user is also created
-            if (!CheckIfUserExist(user_nick))
+            if (!CheckIfEMailExist(user_email))
             {
-                // Create user class
-                
-                // Add to the DataBase
+                // Check if user is also created
+                if (!CheckIfUserExist(user_nick))
+                {
+                    // Create user class
+                    usuario user = new usuario(user_name, user_surnames, user_nick, user_pass1, user_email);
+
+                    // Add to the DataBase
+                    
+                }
+                else
+                {
+                pwriter.print("<html>");
+                pwriter.print("<body>");
+                pwriter.print("This user nickname already exsits !!!<br>");
+                pwriter.print("<a href='registroUsu.jsp'> Click to register again </a>");
+                pwriter.print("</body>");
+                pwriter.print("</html>");
+                }
             }
             else
             {
             pwriter.print("<html>");
             pwriter.print("<body>");
-            pwriter.print("This user nickname already exsits !!!<br>");
+            pwriter.print("This user email already is used !!!<br>");
             pwriter.print("<a href='registroUsu.jsp'> Click to register again </a>");
             pwriter.print("</body>");
             pwriter.print("</html>");
@@ -99,16 +115,27 @@ public class servletUsuarios extends HttpServlet {
         }
         else
         {
+            
         pwriter.print("<html>");
         pwriter.print("<body>");
-        pwriter.print("Password1 != Password2 !!!<br>");
+        pwriter.print("Password1 != Password2 or Password = Null !!!<br>");
         pwriter.print("<a href='registroUsu.jsp'> Click to register again </a>");
         pwriter.print("</body>");
         pwriter.print("</html>");
+            
+        // req.getRequestDispatcher("./registroUsu.jsp").forward(req,res);
         }
     }
     
     boolean CheckIfUserExist(String userNick)
+    {
+        boolean ret = false;
+        // Search on the database
+        
+        return ret;
+    }
+    
+    boolean CheckIfEMailExist(String userEMail)
     {
         boolean ret = false;
         // Search on the database
