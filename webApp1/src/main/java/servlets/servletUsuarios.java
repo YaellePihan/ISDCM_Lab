@@ -96,7 +96,9 @@ public class servletUsuarios extends HttpServlet {
         String user_pass1       = req.getParameter("user_password");
         String user_pass2       = req.getParameter("user_password2");
 
+        
         PrintWriter pwriter=res.getWriter();
+        /*
         pwriter.print("<html>");
         pwriter.print("<body>");
         pwriter.print("<h2>Generic Servlet Example</h2>");
@@ -108,6 +110,24 @@ public class servletUsuarios extends HttpServlet {
         pwriter.print(user_pass2 + "<br>");
         pwriter.print("</body>");
         pwriter.print("</html>");
+        */
+        
+        // Compare if the 2 passwords are the same
+        if (user_pass1.compareTo(user_pass2) == 0)
+        {
+            // Check if user is also created
+            
+        }
+        else
+        {
+        pwriter.print("<html>");
+        pwriter.print("<body>");
+        pwriter.print("Password1 != Password2 !!!<br>");
+        pwriter.print("<a href='registroUsu.jsp'> Click to register again </a>");
+        pwriter.print("</body>");
+        pwriter.print("</html>");
+        
+        }        
     }
 
     
