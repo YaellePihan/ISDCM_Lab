@@ -10,61 +10,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registration Page</title>
+        <link rel="stylesheet" href="style1.css">
     </head>
     
     <body>
-    <style>
-        form {
-            margin: 0 auto;
-            width: 400px;
-            padding: 1em;
-            border: 1px solid #CCC;
-            border-radius: 1em;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        form li + li {
-            margin-top: 1em;
-        }
-
-        label {
-            display: inline-block;
-            width: 90px;
-            text-align: right;
-        }
-
-        input,
-        textarea {
-            font: 1em sans-serif;
-            width: 300px;
-            box-sizing: border-box;
-            border: 1px solid #999;
-        }
-
-        input:focus,
-        textarea:focus {
-            border-color: #000;
-        }
-
-        textarea {
-            vertical-align: top;
-            height: 5em;
-        }
-
-        .button {
-            padding-left: 90px;
-        }
-
-        button {
-            margin-left: .5em;
-        }
-    </style>
-
     <form action="servletUsuarios" method="Post"> <!-- action="/isdcm-lab1-form" -->
     <ul>
         <li>
@@ -102,7 +51,7 @@
         </li>
         
         <li>
-        <a href="login.jsp" method="POST">Have an account</a>
+        <a href="login.jsp">Have an account</a>
         </li>
         
         <a href="servletUsuarios"> Click to use servlet doGet </a>

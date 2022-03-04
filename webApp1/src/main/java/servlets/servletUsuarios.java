@@ -30,42 +30,6 @@ public class servletUsuarios extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    // Proves 1 - Isaac
-    /*
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    {
-        PrintWriter pw = response.getWriter();
-        response.setContentType("text/html");
-        String user = request.getParameter("user_name");
-        String pass1 = request.getParameter("user_password");
-        String pass2 = request.getParameter("user_password2");
-        pw.println("login succed");
-        if (pass1.equals(pass2))
-        {
-            pw.println("pass is the same");
-        }
-        else
-        {
-            pw.println("pass is NOT the same");
-        }
-    }
-    */
-    
-    // Proves 2 - Isaac
-    /*
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res)
-    {
-        String user     = req.getParameter("user_name");
-        String pass1    = req.getParameter("user_password");
-        String pass2    = req.getParameter("user_password2");
-        
-        System.out.println("Hola");
-        
-        req.getRequestDispatcher("/WEB-INF/registroUsu.jsp"); //.forward(req, res);
-    }
-    */
-    
     // Proves 3 - Isaac
     public void processRequest(HttpServletRequest req,HttpServletResponse res) throws IOException,ServletException{
         res.setContentType("text/html");
@@ -98,7 +62,8 @@ public class servletUsuarios extends HttpServlet {
 
         
         PrintWriter pwriter=res.getWriter();
-        /*
+        
+        /*  // TO DEBUG
         pwriter.print("<html>");
         pwriter.print("<body>");
         pwriter.print("<h2>Generic Servlet Example</h2>");
@@ -116,7 +81,21 @@ public class servletUsuarios extends HttpServlet {
         if (user_pass1.compareTo(user_pass2) == 0)
         {
             // Check if user is also created
-            
+            if (!CheckIfUserExist(user_nick))
+            {
+                // Create user class
+                
+                // Add to the DataBase
+            }
+            else
+            {
+            pwriter.print("<html>");
+            pwriter.print("<body>");
+            pwriter.print("This user nickname already exsits !!!<br>");
+            pwriter.print("<a href='registroUsu.jsp'> Click to register again </a>");
+            pwriter.print("</body>");
+            pwriter.print("</html>");
+            }
         }
         else
         {
@@ -126,8 +105,15 @@ public class servletUsuarios extends HttpServlet {
         pwriter.print("<a href='registroUsu.jsp'> Click to register again </a>");
         pwriter.print("</body>");
         pwriter.print("</html>");
+        }
+    }
+    
+    boolean CheckIfUserExist(String userNick)
+    {
+        boolean ret = false;
+        // Search on the database
         
-        }        
+        return ret;
     }
 
     
