@@ -49,14 +49,12 @@
         <li class="button">
         <button type="submit">Registrar usuario</button>
         </li>
-        
-        <li>
-        <a href="login.jsp">Have an account</a>
-        </li>
-        
-        <a href="servletUsuarios"> Click to use servlet doGet </a>
-       </form>
     </ul>
+    </form>
+                    
+    <a href="login.jsp">Have an account</a>
+    <a href="servletUsuarios"> Click to use servlet doGet </a>
+    
 </body>
 
 </html>

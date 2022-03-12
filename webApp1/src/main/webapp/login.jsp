@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>JSP Login Page</title>
         <link rel="stylesheet" href="style1.css">
     </head>
     <body>
@@ -28,11 +28,15 @@
         <li class="button">
         <button type="submit">Entra</button>
         </li>
-        
-        <li>
-            <a href="registroUsu.jsp">Create account</a>
-        </li>
-
-       </form>
+    </ul>
+    </form>
+    
+    <li>
+        <a href="registroUsu.jsp">Create account</a>
+    </li>
+    
+    <li>
+        <a href="listadoVid.jsp"> Entra! (temporal) </a>
+    </li>
     </body>
 </html>
