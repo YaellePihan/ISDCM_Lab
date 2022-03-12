@@ -14,9 +14,11 @@
     </head>
     
     <body>
-    <p>${SYST_MESSAGE}</p>
     <form action="servletUsuarios?register" method="Post"> <!-- action="/isdcm-lab1-form" -->
     <ul>
+        <center>${SYST_MESSAGE}</center>
+        <br>
+
         <li>
         <label for="name">Nombre:</label>
         <input type="text" id="name" name="user_name">
@@ -49,13 +51,13 @@
 
         <li class="button">
         <button type="submit">Registrar usuario</button>
-        </li>
+        </li>        
     </ul>
     </form>
-                    
-    <a href="login.jsp">Have an account</a>
-    <a href="servletUsuarios"> Click to use servlet doGet </a>
     
+    <br>
+    <center> <a href="login.jsp">Have an account</a> </center>
+
 </body>
 
 </html>

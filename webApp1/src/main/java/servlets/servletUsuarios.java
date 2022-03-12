@@ -106,17 +106,17 @@ public class servletUsuarios extends HttpServlet {
                 }
                 else
                 {
-                syst_msg_toRegisterJSP = "System message: This user nickname already exsits !!!<br>";
+                syst_msg_toRegisterJSP = "System message: This user nickname already exsits !!!";
                 }
             }
             else
             {
-            syst_msg_toRegisterJSP = "System message: This user email already is used !!!<br>";
+            syst_msg_toRegisterJSP = "System message: This user email already is used !!!";
             }
         }
         else
         {
-        syst_msg_toRegisterJSP = "System message: Password1 != Password2 or Password = Null !!!<br>";
+        syst_msg_toRegisterJSP = "System message: Password1 != Password2 or Password = Null !!!";
         }
         
         if (!syst_msg_toRegisterJSP.isEmpty())

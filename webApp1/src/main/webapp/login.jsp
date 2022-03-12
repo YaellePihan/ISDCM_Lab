@@ -13,9 +13,11 @@
         <link rel="stylesheet" href="style1.css">
     </head>
     <body>
-    <p>${SYST_MESSAGE}</p>
     <form action="servletUsuarios?login" method="post">
     <ul>
+        <center>${SYST_MESSAGE}</center>
+        <br>
+        
         <li>
         <label for="usernick">Nombre usuario:</label>
         <input type="text" id="usernick" name="user_nick">
@@ -32,8 +34,7 @@
     </ul>
     </form>
     
-    <li>
-        <a href="registroUsu.jsp">Create account</a>
-    </li>
+    <br>
+    <center> <a href="registroUsu.jsp">Create account</a> </center>
     </body>
 </html>
