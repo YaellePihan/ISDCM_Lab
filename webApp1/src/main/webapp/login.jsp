@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="style1.css">
     </head>
     <body>
+    <p>${SYST_MESSAGE}</p>
     <form action="servletUsuarios?login" method="post">
     <ul>
         <li>
@@ -33,10 +34,6 @@
     
     <li>
         <a href="registroUsu.jsp">Create account</a>
-    </li>
-    
-    <li>
-        <a href="listadoVid.jsp"> Entra! (temporal) </a>
     </li>
     </body>
 </html>

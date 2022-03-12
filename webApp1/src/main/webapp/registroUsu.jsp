@@ -14,6 +14,7 @@
     </head>
     
     <body>
+    <p>${SYST_MESSAGE}</p>
     <form action="servletUsuarios?register" method="Post"> <!-- action="/isdcm-lab1-form" -->
     <ul>
         <li>

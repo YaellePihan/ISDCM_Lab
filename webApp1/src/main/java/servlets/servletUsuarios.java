@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.servlet.RequestDispatcher;
+
 import usuario.usuario;
 
 /**
@@ -61,6 +63,11 @@ public class servletUsuarios extends HttpServlet {
         pwriter.print(user_name);
         pwriter.print(user_pass);
         
+        // TODO: Check login
+        
+        RequestDispatcher reqDisp = req.getRequestDispatcher("servletListadoVid");
+        reqDisp.forward(req, res);
+        
     }
     
     public void processPostRequestRegister(HttpServletRequest req,HttpServletResponse res) throws IOException,ServletException{
@@ -74,7 +81,7 @@ public class servletUsuarios extends HttpServlet {
         String user_pass2       = req.getParameter("user_password2");
         
         PrintWriter pwriter = res.getWriter();
-        
+        String syst_msg_toRegisterJSP = "";
         // Compare if the 2 passwords are the same or if is null
         if (user_pass1.compareTo(user_pass2) == 0 && !user_pass1.isEmpty())
         {
@@ -99,32 +106,24 @@ public class servletUsuarios extends HttpServlet {
                 }
                 else
                 {
-                pwriter.print("<html>");
-                pwriter.print("<body>");
-                pwriter.print("This user nickname already exsits !!!<br>");
-                pwriter.print("<a href='registroUsu.jsp'> Click to register again </a>");
-                pwriter.print("</body>");
-                pwriter.print("</html>");
+                syst_msg_toRegisterJSP = "System message: This user nickname already exsits !!!<br>";
                 }
             }
             else
             {
-            pwriter.print("<html>");
-            pwriter.print("<body>");
-            pwriter.print("This user email already is used !!!<br>");
-            pwriter.print("<a href='registroUsu.jsp'> Click to register again </a>");
-            pwriter.print("</body>");
-            pwriter.print("</html>");
+            syst_msg_toRegisterJSP = "System message: This user email already is used !!!<br>";
             }
         }
         else
         {
-        pwriter.print("<html>");
-        pwriter.print("<body>");
-        pwriter.print("Password1 != Password2 or Password = Null !!!<br>");
-        pwriter.print("<a href='registroUsu.jsp'> Click to register again </a>");
-        pwriter.print("</body>");
-        pwriter.print("</html>");
+        syst_msg_toRegisterJSP = "System message: Password1 != Password2 or Password = Null !!!<br>";
+        }
+        
+        if (!syst_msg_toRegisterJSP.isEmpty())
+        {
+            RequestDispatcher reqDisp = req.getRequestDispatcher("registroUsu.jsp");
+            req.setAttribute("SYST_MESSAGE", syst_msg_toRegisterJSP);
+            reqDisp.forward(req, res);
         }
     }
     
