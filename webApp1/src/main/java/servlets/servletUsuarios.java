@@ -7,6 +7,11 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,7 +69,12 @@ public class servletUsuarios extends HttpServlet {
         pwriter.print(user_pass);
         
         // TODO: Check login
-        
+        usuario user = new usuario();
+        if (user.is_user_in_db(user_name, user_pass)){
+            pwriter.print("user exist");
+        }else{
+            pwriter.print("user does not exist");
+        }
         RequestDispatcher reqDisp = req.getRequestDispatcher("servletListadoVid");
         reqDisp.forward(req, res);
         
@@ -85,20 +95,34 @@ public class servletUsuarios extends HttpServlet {
         // Compare if the 2 passwords are the same or if is null
         if (user_pass1.compareTo(user_pass2) == 0 && !user_pass1.isEmpty())
         {
+            usuario user = new usuario();
             if (!CheckIfEMailExist(user_email))
             {
                 // Check if user is also created
-                if (!CheckIfUserExist(user_nick))
+                if (!CheckIfUserExist(user, user_nick,user_pass1))
                 {
                     // Create user class
-                    usuario user = new usuario(user_name, user_surnames, user_nick, user_pass1, user_email);
-                    
-                    // Add to the DataBase
-                    
-                    // If user succesfully created:
+                    //usuario user = new usuario(user_name, user_surnames, user_nick, user_pass1, user_email);
+                    user.setNombre(user_name);
+                    user.setApellidos(user_surnames);
+                    user.setApodo(user_nick);
+                    user.setContrasena(user_pass1);
+                    user.setEmail(user_email);
                     pwriter.print("<html>");
                     pwriter.print("<body>");
-                    pwriter.print("User created correctly !!!<br>");
+                    
+                    /** to debug
+                    pwriter.print(user_name+" "+user.getNombre()+"<br>");
+                    pwriter.print(user_surnames+" "+user.getApellidos()+"<br>");
+                    pwriter.print(user_nick+" "+user.getApodo()+"<br>");
+                    pwriter.print(user_pass1+" "+user.getContrasena()+"<br>");
+                    pwriter.print(user_email+" "+user.getEmail()+"<br>");
+                    **/
+                    // Add to the DataBase
+                    String result = user.add_user_to_db();
+                    // If user succesfully created:
+                    
+                    pwriter.print(result+"<br>");
                     pwriter.print("<a href='login.jsp'> Click to login </a>");
                     pwriter.print("</body>");
                     pwriter.print("</html>");
@@ -127,12 +151,13 @@ public class servletUsuarios extends HttpServlet {
         }
     }
     
-    boolean CheckIfUserExist(String userNick)
+    boolean CheckIfUserExist(usuario user, String user_nick, String user_pass1)
     {
-        boolean ret = false;
+        //boolean result = false;
         // Search on the database
-        
-        return ret;
+        boolean result = user.is_user_in_db(user_nick, user_pass1);
+
+        return result;
     }
     
     boolean CheckIfEMailExist(String userEMail)
@@ -143,6 +168,7 @@ public class servletUsuarios extends HttpServlet {
         return ret;
     }
 
+    
     
     // =================================
     // =========== DEFAULT =============

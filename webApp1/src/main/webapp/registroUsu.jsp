@@ -31,7 +31,7 @@
 
         <li>
         <label for="mail">Correo electrónico:</label>
-        <input type="email" id="mail" name="user_mail">
+        <input type="email" id="mail" name="user_email">
         </li>
         
         <li>
