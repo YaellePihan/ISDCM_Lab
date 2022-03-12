@@ -14,7 +14,7 @@
     </head>
     
     <body>
-    <form action="servletUsuarios" method="Post"> <!-- action="/isdcm-lab1-form" -->
+    <form action="servletUsuarios?register" method="Post"> <!-- action="/isdcm-lab1-form" -->
     <ul>
         <li>
         <label for="name">Nombre:</label>

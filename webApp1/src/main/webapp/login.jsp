@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="style1.css">
     </head>
     <body>
-    <form action="/isdcm-lab1-form" method="post">
+    <form action="servletUsuarios?login" method="post">
     <ul>
         <li>
         <label for="usernick">Nombre usuario:</label>

@@ -52,7 +52,18 @@ public class servletUsuarios extends HttpServlet {
         pwriter.print("</html>");
     }
     
-    public void processPostRequest(HttpServletRequest req,HttpServletResponse res) throws IOException,ServletException{
+    public void processPostRequestLogin(HttpServletRequest req,HttpServletResponse res) throws IOException,ServletException{
+        String user_name        = req.getParameter("user_nick");
+        String user_pass       = req.getParameter("user_password");
+        
+        PrintWriter pwriter = res.getWriter();
+
+        pwriter.print(user_name);
+        pwriter.print(user_pass);
+        
+    }
+    
+    public void processPostRequestRegister(HttpServletRequest req,HttpServletResponse res) throws IOException,ServletException{
         res.setContentType("text/html");
         
         String user_name        = req.getParameter("user_name");
@@ -61,23 +72,8 @@ public class servletUsuarios extends HttpServlet {
         String user_nick        = req.getParameter("user_nick");
         String user_pass1       = req.getParameter("user_password");
         String user_pass2       = req.getParameter("user_password2");
-
         
-        PrintWriter pwriter=res.getWriter();
-        
-        /*  // TO DEBUG
-        pwriter.print("<html>");
-        pwriter.print("<body>");
-        pwriter.print("<h2>Generic Servlet Example</h2>");
-        pwriter.print(user_name + "<br>");
-        pwriter.print(user_surnames + "<br>");
-        pwriter.print(user_email + "<br>");
-        pwriter.print(user_nick + "<br>");
-        pwriter.print(user_pass1 + "<br>");
-        pwriter.print(user_pass2 + "<br>");
-        pwriter.print("</body>");
-        pwriter.print("</html>");
-        */
+        PrintWriter pwriter = res.getWriter();
         
         // Compare if the 2 passwords are the same or if is null
         if (user_pass1.compareTo(user_pass2) == 0 && !user_pass1.isEmpty())
@@ -89,8 +85,16 @@ public class servletUsuarios extends HttpServlet {
                 {
                     // Create user class
                     usuario user = new usuario(user_name, user_surnames, user_nick, user_pass1, user_email);
-
+                    
                     // Add to the DataBase
+                    
+                    // If user succesfully created:
+                    pwriter.print("<html>");
+                    pwriter.print("<body>");
+                    pwriter.print("User created correctly !!!<br>");
+                    pwriter.print("<a href='login.jsp'> Click to login </a>");
+                    pwriter.print("</body>");
+                    pwriter.print("</html>");
                     
                 }
                 else
@@ -115,15 +119,12 @@ public class servletUsuarios extends HttpServlet {
         }
         else
         {
-            
         pwriter.print("<html>");
         pwriter.print("<body>");
         pwriter.print("Password1 != Password2 or Password = Null !!!<br>");
         pwriter.print("<a href='registroUsu.jsp'> Click to register again </a>");
         pwriter.print("</body>");
         pwriter.print("</html>");
-            
-        // req.getRequestDispatcher("./registroUsu.jsp").forward(req,res);
         }
     }
     
@@ -179,7 +180,14 @@ public class servletUsuarios extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processPostRequest(request, response);
+        if (request.getQueryString().compareTo("login") == 0)
+        {
+            processPostRequestLogin(request, response);
+        }
+        else if (request.getQueryString().compareTo("register") == 0)
+        {
+            processPostRequestRegister(request, response);
+        }
     }
     
 
