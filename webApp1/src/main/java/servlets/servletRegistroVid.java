@@ -30,8 +30,8 @@ public class servletRegistroVid extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequestGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -41,9 +41,32 @@ public class servletRegistroVid extends HttpServlet {
             out.println("<title>Servlet servletRegistroVid</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet servletRegistroVid at " + request.getContextPath() + "</h1>");
+            out.println("<h1>GET CALLED! at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+        }
+    }
+    
+    protected void processRequestPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            
+        String title = request.getParameter("video_name");
+        String description = request.getParameter("video_description");      
+
+        PrintWriter pwriter = response.getWriter();
+
+        /*  // TO DEBUG*/
+        pwriter.print("<html>");
+        pwriter.print("<body>");
+        pwriter.print("<h2>Generic Servlet Example</h2>");
+        pwriter.print(title + "<br>");
+        pwriter.print(description+ "<br>");
+        video video = new video(title,"author","date","time",description,"format",1); 
+        video.add_video_to_db();
+        pwriter.print("</body>");
+        pwriter.print("</html>");
         }
     }
 
@@ -59,7 +82,7 @@ public class servletRegistroVid extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        processRequestGet(request, response);
     }
 
     /**
@@ -73,23 +96,10 @@ public class servletRegistroVid extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        processRequest(req, res);
-        
-        String title = req.getParameter("video_name");
-        String description = req.getParameter("video_description");      
-
-        PrintWriter pwriter = res.getWriter();
-
-        /*  // TO DEBUG*/
-        pwriter.print("<html>");
-        pwriter.print("<body>");
-        pwriter.print("<h2>Generic Servlet Example</h2>");
-        pwriter.print(title + "<br>");
-        pwriter.print(description+ "<br>");
-        video video = new video(title,"author","date","time",description,"format",1); 
-        video.add_video_to_db();
-        pwriter.print("</body>");
-        pwriter.print("</html>");
+        if (req.getQueryString().compareTo("uploadvid") == 0)
+        {
+            processRequestPost(req, res);            
+        }
     }
 
     /**
