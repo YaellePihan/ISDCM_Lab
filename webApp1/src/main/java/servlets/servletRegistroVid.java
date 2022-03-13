@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import video.video;
 
 /**
  *
@@ -64,15 +65,31 @@ public class servletRegistroVid extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param req servlet request
+     * @param resp servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-        processRequest(request, response);
+        processRequest(req, res);
+        
+        String title = req.getParameter("video_name");
+        String description = req.getParameter("video_description");      
+
+        PrintWriter pwriter = res.getWriter();
+
+        /*  // TO DEBUG*/
+        pwriter.print("<html>");
+        pwriter.print("<body>");
+        pwriter.print("<h2>Generic Servlet Example</h2>");
+        pwriter.print(title + "<br>");
+        pwriter.print(description+ "<br>");
+        video video = new video(title,"author","date","time",description,"format",1); 
+        video.add_video_to_db();
+        pwriter.print("</body>");
+        pwriter.print("</html>");
     }
 
     /**

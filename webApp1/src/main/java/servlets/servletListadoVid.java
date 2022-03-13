@@ -7,6 +7,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.RequestDispatcher;
+import video.ListVideos;
+import video.video;
 
 /**
  *
@@ -26,8 +29,8 @@ public class servletListadoVid extends HttpServlet {
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param req servlet request
+     * @param res servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
@@ -47,13 +50,29 @@ public class servletListadoVid extends HttpServlet {
     String CreateVideoTable()
     {
         String ret = "<table>";
+        
+        //to get the list of videos                  
+        ListVideos lv = new ListVideos();
+        ArrayList<video> list_videos = lv.getList_videos();
+        
+        //to read and print in a table the list of videos
+        ret += "<tr> <th>Title </th> <th>Autor </th></tr>";
+        for (int counter = 0; counter < list_videos.size(); counter++) {
+            video v = list_videos.get(counter);
+            ret += "<tr> <td> " + v.getTitulo() + "</td> <td> " + v.getAutor() + "</td></tr>";	
+        }
+        ret += "</tr></table>";
+        
+        //test of table to debug 
+        /**
         ret += "<tr> <th>Image</th> <th>Vid Name </th> <th>Description</th> </tr>";
         int numOfVid = 3;
         for (int i = 0; i < numOfVid; i++)
         {
             ret += "<tr> <td> " + i + "</td> <td> " + i + "</td> <td> " + i + "</td> </tr>";
         }
-        ret += "</tr></table>";
+        ret += "</tr></table>";**/
+        
         return ret;
     }
     

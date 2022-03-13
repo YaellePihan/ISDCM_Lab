@@ -111,18 +111,18 @@ public class servletUsuarios extends HttpServlet {
                     pwriter.print("<html>");
                     pwriter.print("<body>");
                     
-                    /** to debug
+                    /** to debug**/
                     pwriter.print(user_name+" "+user.getNombre()+"<br>");
                     pwriter.print(user_surnames+" "+user.getApellidos()+"<br>");
                     pwriter.print(user_nick+" "+user.getApodo()+"<br>");
                     pwriter.print(user_pass1+" "+user.getContrasena()+"<br>");
                     pwriter.print(user_email+" "+user.getEmail()+"<br>");
-                    **/
+                    
                     // Add to the DataBase
                     String result = user.add_user_to_db();
                     // If user succesfully created:
                     
-                    pwriter.print(result+"<br>");
+                    //pwriter.print(result+"<br>");
                     pwriter.print("<a href='login.jsp'> Click to login </a>");
                     pwriter.print("</body>");
                     pwriter.print("</html>");
