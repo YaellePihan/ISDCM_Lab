@@ -36,12 +36,17 @@ public class servletListadoVid extends HttpServlet {
         ListVideos lv = new ListVideos();
         ArrayList<video> list_videos = lv.getList_videos();
         
-        ret += "<tr> <th>Title </th> <th>Author </th></tr>";    // PREGUNTA: CAL QUE CARREGUEM VIDEOS? O ELS DESCARREGUEM?
+        ret += "<tr> <th>Title</th> <th>Description</th> <th>Author</th> <th>Duration</th> <th>Upload date</th> <th>Format</th> </tr>";    // PREGUNTA: CAL QUE CARREGUEM VIDEOS? O ELS DESCARREGUEM?
         for (int i = 0; i < list_videos.size(); i++) {
             video v = list_videos.get(i);
-            ret += "<tr> <td> " + v.getTitulo() + "</td> <td> " + v.getAutor() + "</td></tr>";	
+            ret += "<tr>" + "<td> " + v.getTitulo() + "</td>";
+            ret += "<td>" + v.getDescripcion()+ "</td>";
+            ret += "<td>" + v.getAutor() + "</td>";
+            ret += "<td>" + v.getDuracion() + "</td>";
+            ret += "<td>" + v.getFecha_creacion()+ "</td>";
+            ret += "<td>" + v.getFormato()+ "</td>" + "</tr>";
         }
-        ret += "</tr></table>";
+        ret += "</table>";
         
         return ret;
     }

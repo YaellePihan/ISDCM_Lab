@@ -26,6 +26,16 @@
         </li>
         
         <li>
+        <label for="password">Autor:</label>
+        <input type="text" id="videoauthor" name="video_author">
+        </li>
+        
+        <li>
+        <label for="password">Duracion:</label>
+        <input type="text" id="videoduration" name="video_duration">
+        </li>
+        
+        <li>
         <label for="myfile">Select a file:</label>
         <input type="file" id="myvideo" name="my_video"> 
         </li>
