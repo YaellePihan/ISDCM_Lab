@@ -25,7 +25,7 @@
 
         <li>
         <label for="password">Contraseña:</label>
-        <input type="text" id="password" name="user_password">
+        <input type="password" id="password" name="user_password">
         </li>
 
         <li class="button">

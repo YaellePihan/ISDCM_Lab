@@ -20,32 +20,32 @@
         <br>
 
         <li>
-        <label for="name">Nombre:</label>
+        <label for="name">Nombre: </label>
         <input type="text" id="name" name="user_name">
         </li>
 
         <li>
-        <label for="surname">Apellidos:</label>
+        <label for="surname">Apellidos: </label>
         <input type="text" id="surnames" name="user_surnames">
         </li>
 
         <li>
-        <label for="mail">Correo electrónico:</label>
+        <label for="mail">Correo electrónico: </label>
         <input type="email" id="mail" name="user_email">
         </li>
         
         <li>
-        <label for="usernick">Nombre usuario:</label>
+        <label for="usernick">Nombre usuario: </label>
         <input type="text" id="usernick" name="user_nick">
         </li>
 
         <li>
-        <label for="password">Contraseña:</label>
+        <label for="password">Contraseña: </label>
         <input type="password" id="password" name="user_password">
         </li>
 
         <li>
-        <label for="password2">Repetir Contraseña:</label>
+        <label for="password2">Repetir Contraseña: </label>
         <input type="password" id="userpassword2" name="user_password2">
         </li>
 

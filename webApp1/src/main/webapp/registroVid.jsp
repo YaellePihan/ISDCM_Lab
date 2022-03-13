@@ -32,8 +32,8 @@
 
         <br>
         <button type="submit">Subir Video</button>
-        <button type="cancel">Cancelar</button>
     </ul>
     </form>
+    <center> <a href="servletListadoVid">Cancelar</a> </center>
     </body>
 </html>
