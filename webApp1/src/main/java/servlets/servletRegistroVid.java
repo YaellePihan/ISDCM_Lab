@@ -43,34 +43,41 @@ public class servletRegistroVid extends HttpServlet {
         String description      = request.getParameter("video_description");
         String author           = request.getParameter("video_author");
         String duration         = request.getParameter("video_duration");
-        String nb_of_reproductions  = request.getParameter("nb_reproducciones");
-        // Get time
-        DateTimeFormatter dft = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        // Get format
         
-        // add video
-        try{
-            // convert string to int for nb of reproductions
-            int nb_reproductions = Integer.parseInt(nb_of_reproductions);
-            // create video
-            video video = new video(title, author, dft.format(now), duration, description, "format",nb_reproductions);
-            // check if video does not already exist
-            if(!video.is_video_in_db(title)){
-                // add video
-                video.add_video_to_db();
-            }else{
-            //message !
-            }   
-        
+        if (title.isEmpty() || description.isEmpty() || author.isEmpty() || duration.isEmpty())
+        {
+            RequestDispatcher reqDisp = request.getRequestDispatcher("registroVid.jsp");
+            request.setAttribute("SYST_MESSAGE", "System message: Any field with (*) can be empty!");
+            reqDisp.forward(request, response);
         }
-        catch (NumberFormatException ex){
-            ex.printStackTrace();
-        }    
-              
-        
-        RequestDispatcher reqDisp = request.getRequestDispatcher("servletListadoVid");
-        reqDisp.forward(request, response);
+        else
+        {
+            // Get time
+            DateTimeFormatter dft = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            // Get format
+
+            // add video
+            try{
+                // create video
+                video video = new video(title, author, dft.format(now), duration, description, "format",0);
+                // check if video does not already exist
+                if(!video.is_video_in_db(title)){
+                    // add video
+                    video.add_video_to_db();
+                }else{
+                //message !
+                }   
+
+            }
+            catch (NumberFormatException ex){
+                ex.printStackTrace();
+            }    
+
+
+            RequestDispatcher reqDisp = request.getRequestDispatcher("servletListadoVid");
+            reqDisp.forward(request, response);
+        }
         }
     }
     

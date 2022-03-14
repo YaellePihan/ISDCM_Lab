@@ -15,29 +15,27 @@
     <body>
     <form action="servletRegistroVid?uploadvid" method="post">
     <ul>
+        <center>${SYST_MESSAGE}</center>
+        <br>
+                
         <li>
-        <label for="usernick">Nombre de video:</label>
+        <label for="usernick">Nombre de video*:</label>
         <input type="text" id="videoname" name="video_name">
         </li>
 
         <li>
-        <label for="password">Descripción de video:</label>
+        <label for="password">Descripción de video*:</label>
         <input type="text" id="videodescription" name="video_description">
         </li>
         
         <li>
-        <label for="password">Autor:</label>
+        <label for="password">Autor*:</label>
         <input type="text" id="videoauthor" name="video_author">
         </li>
         
         <li>
-        <label for="password">Duracion:</label>
+        <label for="password">Duracion*:</label>
         <input type="text" id="videoduration" name="video_duration">
-        </li>
-        
-        <li>
-        <label for="password">Número de reproducciones:</label>
-        <input type="text" id="nbreproducciones" name="nb_reproducciones">
         </li>
         
         <li>
