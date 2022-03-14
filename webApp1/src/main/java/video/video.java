@@ -150,7 +150,7 @@ public class video {
     
     
     //to check if a video already exist in the db
-    public Boolean is_video_in_db(String title){
+    public Boolean is_video_in_db(){
         Boolean result = true;
         String query = "select count(*) from videos where title=?";
         Connection c = null;
@@ -161,7 +161,7 @@ public class video {
             // prepare statement
             PreparedStatement statement;
             statement = c.prepareStatement(query);
-            statement.setString(1, title);
+            statement.setString(1, this.getTitulo());
             
             // execute query and analyse results
             ResultSet r = statement.executeQuery();

@@ -52,7 +52,7 @@ public class servletRegistroVid extends HttpServlet {
 
             try{
                 video video = new video(title, author, dft.format(now), duration, description, "format",0);
-                if(!video.is_video_in_db(title))
+                if(!video.is_video_in_db())
                 {
                     video.add_video_to_db();
                     RequestDispatcher reqDisp = request.getRequestDispatcher("servletListadoVid");
