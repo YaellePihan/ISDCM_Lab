@@ -6,7 +6,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +24,7 @@ public class servletListadoVid extends HttpServlet {
         res.setContentType("text/html");
         
         RequestDispatcher reqDisp = req.getRequestDispatcher("listadoVid.jsp");
-        req.setAttribute("Table", CreateVideoTable());  // Create tables
+        req.setAttribute("Table", CreateVideoTable());  // Create table
         reqDisp.forward(req, res);
     }
     
@@ -36,14 +35,16 @@ public class servletListadoVid extends HttpServlet {
         ListVideos lv = new ListVideos();
         ArrayList<video> list_videos = lv.getList_videos();
         
-        ret += "<tr> <th>Title</th> <th>Description</th> <th>Author</th> <th>Duration</th> <th>Upload date</th> <th>Format</th> </tr>";    // PREGUNTA: CAL QUE CARREGUEM VIDEOS? O ELS DESCARREGUEM?
+        ret += "<tr> <th>ID</th> <th>Title</th> <th>Author</th> <th>Description</th> <th>Duration</th> <th>Upload date</th> <th>Number of reproductions</th> <th>Format</th> </tr>";    // PREGUNTA: CAL QUE CARREGUEM VIDEOS? O ELS DESCARREGUEM?
         for (int i = 0; i < list_videos.size(); i++) {
             video v = list_videos.get(i);
-            ret += "<tr>" + "<td> " + v.getTitulo() + "</td>";
-            ret += "<td>" + v.getDescripcion()+ "</td>";
+            ret += "<tr>" + "<td> " + v.getId() + "</td>";
+            ret += "<td>" + v.getTitulo()+ "</td>";
             ret += "<td>" + v.getAutor() + "</td>";
+            ret += "<td>" + v.getDescripcion()+ "</td>";            
             ret += "<td>" + v.getDuracion() + "</td>";
             ret += "<td>" + v.getFecha_creacion()+ "</td>";
+            ret += "<td>" + v.getNum_reproduccion()+ "</td>";
             ret += "<td>" + v.getFormato()+ "</td>" + "</tr>";
         }
         ret += "</table>";
@@ -65,8 +66,7 @@ public class servletListadoVid extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-    }        // Read and print in a table the list of videos
-
+    }        
 
     @Override
     public String getServletInfo() {

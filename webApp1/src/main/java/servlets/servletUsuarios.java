@@ -7,37 +7,18 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import javax.servlet.RequestDispatcher;
 
 import usuario.usuario;
 
 @WebServlet(name = "servletUsuarios", urlPatterns = {"/servletUsuarios"})
 public class servletUsuarios extends HttpServlet {
-    
-    public void processRequestGet(HttpServletRequest req,HttpServletResponse res) throws IOException,ServletException{
-        res.setContentType("text/html");
-       
-
-        PrintWriter pwriter=res.getWriter();
-        pwriter.print("<html>");
-        pwriter.print("<body>");
-        pwriter.print("<h2>Called Get</h2>");   // PREGUNTA: CAL QUE FEM ALGO AMB EL GET?
-        pwriter.print("Puta Espanya :)");
-        pwriter.print("</body>");
-        pwriter.print("</html>");
-    }
-    
+     
     public void processPostRequestLogin(HttpServletRequest req,HttpServletResponse res) throws IOException,ServletException{
         String user_name = req.getParameter("user_nick");
         String user_pass = req.getParameter("user_password");
@@ -131,11 +112,6 @@ public class servletUsuarios extends HttpServlet {
     // ========= BASIC SERVLET CALLS =========
     // =======================================
     
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequestGet(request, response);
-    }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

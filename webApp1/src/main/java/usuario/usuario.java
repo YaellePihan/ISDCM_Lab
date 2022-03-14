@@ -33,7 +33,6 @@ public class usuario {
         this.apodo = apo;
         this.contrasena = contr;
         this.email = ema;
-        // Estaria guay fer un print aquí per veure si es crea be
     }
     
     //Setters
@@ -78,27 +77,27 @@ public class usuario {
         return email;
     }
     
-    //Functions querying the database
+    //add a user to the db
     public String add_user_to_db(){
         String result = "Error when adding user to database";
         // define query
-        String query = "insert into users values(?,?,?,?,?)";
+        String query = "insert into users(\"FIRST_NAME\",\"NAME\",\"EMAIL\",\"USERNAME\",\"PASSWORD\") values(?,?,?,?,?)";
         Connection c = null;
         try{
             // create a database connection
-            result ="enter into try";
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-            result="before connection";            
-            c = DriverManager.getConnection("jdbc:derby://localhost:1527/UserDB;user=userDB;password=userDB");
-            result ="connection:"+c;
+            Class.forName("org.apache.derby.jdbc.ClientDriver");           
+            c = DriverManager.getConnection("jdbc:derby://localhost:1527/isdcm_lab_db;user=isdcm_lab_db;password=isdcm_lab_db");
+            
+            // prepare statement
             PreparedStatement statement;
             statement = c.prepareStatement(query);
-            result ="statement:"+statement;
             statement.setString(1,this.getNombre());
             statement.setString(2,this.getApellidos());
             statement.setString(3,this.getEmail());
             statement.setString(4,this.getApodo());
             statement.setString(5,this.getContrasena());
+            
+            // execute query
             int i = statement.executeUpdate();
             result = "User successfully added to database";
         }catch (ClassNotFoundException | SQLException e) {
@@ -116,22 +115,26 @@ public class usuario {
     
     // function called by the servlet to know if a user is already stored in the database or not
     public Boolean is_user_in_db(String user, String passwd){
-        //String result = "El usuario existe";
         Boolean result = true;
+        // define query
         String query = "select count(*) from users where username=? and password=?";
         Connection c = null;
         try{
-            c = DriverManager.getConnection("jdbc:derby://localhost:1527/UserDB;user=userDB;password=userDB");
+            // create a database connection
+            c = DriverManager.getConnection("jdbc:derby://localhost:1527/isdcm_lab_db;user=isdcm_lab_db;password=isdcm_lab_db");
+            
+            // prepare statement
             PreparedStatement statement;
             statement = c.prepareStatement(query);
             statement.setString(1, user);
-            statement.setString(2, passwd);   
+            statement.setString(2, passwd);
+            
+            // execute query
             ResultSet r = statement.executeQuery();
         if (r.next())
             {
-                if (r.getInt(1) == 0)
-                    //result = "El usuario no existe";
-                    result = false;
+                if (r.getInt(1) == 0)//if the number of user == 0
+                    result = false;   //then user does not exist yet
             }    
         }catch (SQLException e) {
             System.out.println(Arrays.toString(e.getStackTrace()));

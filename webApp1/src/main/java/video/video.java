@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -23,6 +22,7 @@ public class video {
     String fecha_creacion;
     String duracion;
     int num_reproduccion;
+    int id;
     String descripcion;
     String formato;
 
@@ -37,10 +37,15 @@ public class video {
         this.duracion = time;
         this.descripcion = description;
         this.formato = format;
-        this.num_reproduccion =nb;
+        this.num_reproduccion = nb;
     }
+   
 
     //Setters
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
@@ -70,6 +75,9 @@ public class video {
     }
     
     //Getters
+    public int getId() {
+        return id;
+    }
 
     public String getTitulo() {
         return titulo;
@@ -104,18 +112,18 @@ public class video {
     public String add_video_to_db(){
         String result = "Error when adding video to database";
         // define query
-        String query = "insert into videos values(?,?,?,?,?,?,?)";
+        String query = "insert into videos(\"TITLE\",\"AUTHOR\",\"UPDATE_DATE\",\"TIME\",\"NB_OF_REPRODUCTIONS\",\"DESCRIPTION\",\"FORMAT\") values(?,?,?,?,?,?,?)";
         Connection c = null;
         try{
             // create a database connection
             result ="enter into try";
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             result="before connection";            
-            c = DriverManager.getConnection("jdbc:derby://localhost:1527/UserDB;user=userDB;password=userDB");
-            result ="connection:"+c;
+            c = DriverManager.getConnection("jdbc:derby://localhost:1527/isdcm_lab_db;user=isdcm_lab_db;password=isdcm_lab_db");
+            
+            // prepare statement
             PreparedStatement statement;
             statement = c.prepareStatement(query);
-            result ="statement:"+statement;
             statement.setString(1,this.getTitulo());
             statement.setString(2,this.getAutor());
             statement.setString(3,this.getFecha_creacion());
@@ -123,11 +131,48 @@ public class video {
             statement.setInt(5,this.getNum_reproduccion());
             statement.setString(6,this.getDescripcion());
             statement.setString(7,this.getFormato());
+            
+            // execute query
             int i = statement.executeUpdate();
             result = "Video successfully added to database";
         }catch (ClassNotFoundException | SQLException e) {
             System.out.println(Arrays.toString(e.getStackTrace()));
         }finally {
+            try {
+                if (c != null) 
+                    c.close();                
+            } catch (SQLException e) {
+                System.out.println(Arrays.toString(e.getStackTrace()));
+            }
+        }
+        return result;
+    }
+    
+    
+    //to check if a video already exist in the db
+    public Boolean is_video_in_db(String title){
+        Boolean result = true;
+        String query = "select count(*) from videos where title=?";
+        Connection c = null;
+        try{
+            // create connection to db
+            c = DriverManager.getConnection("jdbc:derby://localhost:1527/isdcm_lab_db;user=isdcm_lab_db;password=isdcm_lab_db");
+            
+            // prepare statement
+            PreparedStatement statement;
+            statement = c.prepareStatement(query);
+            statement.setString(1, title);
+            
+            // execute query and analyse results
+            ResultSet r = statement.executeQuery();
+        if (r.next())
+            {
+                if (r.getInt(1) == 0) //if the number of video == 0
+                    result = false;   //then video does not exist yet
+            }    
+        }catch (SQLException e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        } finally {
             try {
                 if (c != null) 
                     c.close();                

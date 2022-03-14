@@ -36,6 +36,11 @@
         </li>
         
         <li>
+        <label for="password">Número de reproducciones:</label>
+        <input type="text" id="nbreproducciones" name="nb_reproducciones">
+        </li>
+        
+        <li>
         <label for="myfile">Select a file:</label>
         <input type="file" id="myvideo" name="my_video"> 
         </li>
