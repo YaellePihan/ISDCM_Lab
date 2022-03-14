@@ -31,24 +31,24 @@ public class servletListadoVid extends HttpServlet {
     String CreateVideoTable()
     {
         String ret = "<table>";
-        
-        ListVideos lv = new ListVideos();
-        ArrayList<video> list_videos = lv.getList_videos();
-        
-        ret += "<tr> <th>ID</th> <th>Title</th> <th>Author</th> <th>Description</th> <th>Duration</th> <th>Upload date</th> <th>Number of reproductions</th> <th>Format</th> </tr>";    // PREGUNTA: CAL QUE CARREGUEM VIDEOS? O ELS DESCARREGUEM?
-        for (int i = 0; i < list_videos.size(); i++) {
-            video v = list_videos.get(i);
-            ret += "<tr>" + "<td> " + v.getId() + "</td>";
-            ret += "<td>" + v.getTitulo()+ "</td>";
-            ret += "<td>" + v.getAutor() + "</td>";
-            ret += "<td>" + v.getDescripcion()+ "</td>";            
-            ret += "<td>" + v.getDuracion() + "</td>";
-            ret += "<td>" + v.getFecha_creacion()+ "</td>";
-            ret += "<td>" + v.getNum_reproduccion()+ "</td>";
-            ret += "<td>" + v.getFormato()+ "</td>" + "</tr>";
-        }
-        ret += "</table>";
-        
+        try{
+            ListVideos lv = new ListVideos();
+            ArrayList<video> list_videos = lv.getList_videos();
+
+            ret += "<tr> <th>ID</th> <th>Title</th> <th>Author</th> <th>Description</th> <th>Duration</th> <th>Upload date</th> <th>Number of reproductions</th> <th>Format</th> </tr>";    // PREGUNTA: CAL QUE CARREGUEM VIDEOS? O ELS DESCARREGUEM?
+            for (int i = 0; i < list_videos.size(); i++) {
+                video v = list_videos.get(i);
+                ret += "<tr>" + "<td> " + v.getId() + "</td>";
+                ret += "<td>" + v.getTitulo()+ "</td>";
+                ret += "<td>" + v.getAutor() + "</td>";
+                ret += "<td>" + v.getDescripcion()+ "</td>";            
+                ret += "<td>" + v.getDuracion() + "</td>";
+                ret += "<td>" + v.getFecha_creacion()+ "</td>";
+                ret += "<td>" + v.getNum_reproduccion()+ "</td>";
+                ret += "<td>" + v.getFormato()+ "</td>" + "</tr>";
+            }
+            ret += "</table>";
+        }catch (NumberFormatException ex){}
         return ret;
     }
     

@@ -22,19 +22,22 @@ public class servletUsuarios extends HttpServlet {
     public void processPostRequestLogin(HttpServletRequest req,HttpServletResponse res) throws IOException,ServletException{
         String user_name = req.getParameter("user_nick");
         String user_pass = req.getParameter("user_password");
+        try{
+            usuario user = new usuario();
+            if (user.is_user_in_db(user_name, user_pass))
+            {
+                RequestDispatcher reqDisp = req.getRequestDispatcher("servletListadoVid");
+                reqDisp.forward(req, res);
+            }
+            else
+            {
+                RequestDispatcher reqDisp = req.getRequestDispatcher("login.jsp");
+                req.setAttribute("SYST_MESSAGE", "User or Password incorrect");
+                reqDisp.forward(req, res);
+            }
+        }catch (NumberFormatException ex){}
+    
         
-        usuario user = new usuario();
-        if (user.is_user_in_db(user_name, user_pass))
-        {
-            RequestDispatcher reqDisp = req.getRequestDispatcher("servletListadoVid");
-            reqDisp.forward(req, res);
-        }
-        else
-        {
-            RequestDispatcher reqDisp = req.getRequestDispatcher("login.jsp");
-            req.setAttribute("SYST_MESSAGE", "User or Password incorrect");
-            reqDisp.forward(req, res);
-        }
     }
     
     public void processPostRequestRegister(HttpServletRequest req,HttpServletResponse res) throws IOException,ServletException{

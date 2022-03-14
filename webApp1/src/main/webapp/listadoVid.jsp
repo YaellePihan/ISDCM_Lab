@@ -17,6 +17,9 @@
         <a href="servletRegistroVid">Subir video</a>
         <a href="login.jsp">Salir</a>
         <p> ${Table} </p>
+        <br>
+        <center>${SYST_MESSAGE}</center>
+        <br>
         
     </body>
 </html>

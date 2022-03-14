@@ -56,6 +56,7 @@ public class servletRegistroVid extends HttpServlet {
                 {
                     video.add_video_to_db();
                     RequestDispatcher reqDisp = request.getRequestDispatcher("servletListadoVid");
+                    request.setAttribute("SYST_MESSAGE", "System message: Video successfully added to database!");
                     reqDisp.forward(request, response);
                 }
                 else
@@ -66,7 +67,6 @@ public class servletRegistroVid extends HttpServlet {
                 }
             }
             catch (NumberFormatException ex){
-                ex.printStackTrace();
             }
         }
         }
