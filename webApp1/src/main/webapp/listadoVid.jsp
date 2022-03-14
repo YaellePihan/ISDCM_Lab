@@ -14,8 +14,8 @@
     </head>
     <body>
         <h1>Main page</h1>
-        <a href="registroVid.jsp">Subir video</a>
-        
+        <a href="servletRegistroVid">Subir video</a>
+        <a href="login.jsp">Salir</a>
         <p> ${Table} </p>
         
     </body>

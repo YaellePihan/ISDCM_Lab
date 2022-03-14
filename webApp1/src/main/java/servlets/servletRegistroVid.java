@@ -20,16 +20,8 @@ public class servletRegistroVid extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet servletRegistroVid</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>GET CALLED! at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            RequestDispatcher reqDisp = request.getRequestDispatcher("registroVid.jsp");
+            reqDisp.forward(request, response);
         }
     }
     
@@ -56,27 +48,26 @@ public class servletRegistroVid extends HttpServlet {
             DateTimeFormatter dft = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss");
             LocalDateTime now = LocalDateTime.now();
             // Get format
+            
 
-            // add video
             try{
-                // create video
                 video video = new video(title, author, dft.format(now), duration, description, "format",0);
-                // check if video does not already exist
-                if(!video.is_video_in_db(title)){
-                    // add video
+                if(!video.is_video_in_db(title))
+                {
                     video.add_video_to_db();
-                }else{
-                //message !
-                }   
-
+                    RequestDispatcher reqDisp = request.getRequestDispatcher("servletListadoVid");
+                    reqDisp.forward(request, response);
+                }
+                else
+                {
+                    RequestDispatcher reqDisp = request.getRequestDispatcher("registroVid.jsp");
+                    request.setAttribute("SYST_MESSAGE", "System message: Video Tittle already exists!");
+                    reqDisp.forward(request, response);
+                }
             }
             catch (NumberFormatException ex){
                 ex.printStackTrace();
-            }    
-
-
-            RequestDispatcher reqDisp = request.getRequestDispatcher("servletListadoVid");
-            reqDisp.forward(request, response);
+            }
         }
         }
     }
