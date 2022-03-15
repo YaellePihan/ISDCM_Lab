@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.http.Cookie;
+//import javax.servlet.http.Cookie;
 
 import usuario.usuario;
 
@@ -29,9 +29,10 @@ public class servletUsuarios extends HttpServlet {
             if (user.is_user_in_db(user_name, user_pass))
             {
                 RequestDispatcher reqDisp = req.getRequestDispatcher("servletListadoVid");
-                Cookie cookie = new Cookie("userName", user_name);
-                cookie.setMaxAge(60*60);
-                res.addCookie(cookie);
+                //Cookie cookie = new Cookie("userName", user_name);
+                //cookie.setMaxAge(0);
+                //cookie.setPath("/servletListadoVid");
+                //res.addCookie(cookie);
                 reqDisp.forward(req, res);
             }
             else

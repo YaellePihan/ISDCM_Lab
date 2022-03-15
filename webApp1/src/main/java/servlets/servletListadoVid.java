@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.http.Cookie;
+//import javax.servlet.http.Cookie;
 
 import video.ListVideos;
 import video.video;
@@ -27,8 +27,8 @@ public class servletListadoVid extends HttpServlet {
         
         RequestDispatcher reqDisp = req.getRequestDispatcher("listadoVid.jsp");
         req.setAttribute("Table", CreateVideoTable());  // Create table
-        Cookie cookie[] = req.getCookies();
-        req.setAttribute("USER_NAME", cookie[1].getValue());
+        //Cookie cookie[] = req.getCookies();
+        //req.setAttribute("USER_NAME", cookie[1].getValue());
         reqDisp.forward(req, res);
     }
     
