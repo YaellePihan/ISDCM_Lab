@@ -14,6 +14,7 @@
     </head>
     <body>
         <h1>Main page</h1>
+        <p>${USER_NAME}</p>
         <a href="servletRegistroVid">Subir video</a>
         <a href="login.jsp">Salir</a>
         <p> ${Table} </p>
