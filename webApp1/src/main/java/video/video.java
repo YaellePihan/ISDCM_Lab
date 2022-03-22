@@ -148,7 +148,7 @@ public class video {
         return result;
     }
     
-    
+    // test for a push 
     //to check if a video already exist in the db
     public Boolean is_video_in_db(){
         Boolean result = true;
