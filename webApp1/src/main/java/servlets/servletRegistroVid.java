@@ -15,12 +15,16 @@ import java.time.format.DateTimeFormatter;
 
 @WebServlet(name = "servletRegistroVid", urlPatterns = {"/servletRegistroVid"})
 public class servletRegistroVid extends HttpServlet {
-
+    
+    String userID = "";
     protected void processRequestGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            userID = request.getParameter("id").toString();
             RequestDispatcher reqDisp = request.getRequestDispatcher("registroVid.jsp");
+            request.setAttribute("USER_NAME", userID);
+            request.setAttribute("GO_BACK", " <center> <a href=\"servletListadoVid?id=" + userID + "\">Cancelar</a> </center>");
             reqDisp.forward(request, response);
         }
     }

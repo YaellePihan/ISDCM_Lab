@@ -22,13 +22,32 @@ import video.video;
 @WebServlet(name = "servletListadoVid", urlPatterns = {"/servletListadoVid"})
 public class servletListadoVid extends HttpServlet {
 
+    String userID = "";
     public void processRequest(HttpServletRequest req,HttpServletResponse res) throws IOException,ServletException{
         res.setContentType("text/html");
-        
+        userID = req.getParameter("id").toString();
         RequestDispatcher reqDisp = req.getRequestDispatcher("listadoVid.jsp");
-        req.setAttribute("Table", CreateVideoTable());  // Create table
-        //Cookie cookie[] = req.getCookies();
-        //req.setAttribute("USER_NAME", cookie[1].getValue());
+        req.setAttribute("USER_NAME", userID);
+        
+        req.setAttribute("GOTO_UPLOAD_VID", "<a href=\"servletRegistroVid?id=" + userID + "\">Subir video</a>");
+        req.setAttribute("GOTO_REPRODUCTION", "<a href=\"reproduccion.jsp?id=" + userID + "\"> Watch video </a>");
+        req.setAttribute("GOTO_LOGOUT", "<a href=\"login.jsp\">Salir</a>");
+        
+        req.setAttribute("Table", CreateVideoTable());
+        
+        reqDisp.forward(req, res);
+    }
+    
+    public void GotoVideoReproduction(HttpServletRequest req,HttpServletResponse res) throws IOException,ServletException{
+        res.setContentType("text/html");
+        
+        RequestDispatcher reqDisp = req.getRequestDispatcher("reproduccion.jsp");
+        
+        req.setAttribute("USER_NAME", userID);
+        req.setAttribute("GO_BACK", " <center> <a href=\"servletListadoVid?id=" + userID + "\">Cancelar</a> </center>");
+        
+        req.setAttribute("Table", CreateVideoTable());
+        
         reqDisp.forward(req, res);
     }
     

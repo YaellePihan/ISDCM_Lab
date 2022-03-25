@@ -28,7 +28,7 @@ public class servletUsuarios extends HttpServlet {
             usuario user = new usuario();
             if (user.is_user_in_db(user_name, user_pass))
             {
-                RequestDispatcher reqDisp = req.getRequestDispatcher("servletListadoVid");
+                RequestDispatcher reqDisp = req.getRequestDispatcher("servletListadoVid?id=" + user_name);
                 //Cookie cookie = new Cookie("userName", user_name);
                 //cookie.setMaxAge(0);
                 //cookie.setPath("/servletListadoVid");

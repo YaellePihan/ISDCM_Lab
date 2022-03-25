@@ -15,7 +15,9 @@
     </head>
     <body>
         <center>${SYST_MESSAGE}</center>
-        <a href="login.jsp">Go back</a> <!-- TODO: FIX THIS -->
+        <a> ${USER_NAME}</a>
+        <a> ${GO_BACK}</a>
+        <a href="login.jsp">Go back old</a> <!-- TODO: FIX THIS -->
         <p>${VID_TITLE}</p>
         <p>${VID_AUTHOR}</p>
         <p>${VID_CREATION_DATE}</p>

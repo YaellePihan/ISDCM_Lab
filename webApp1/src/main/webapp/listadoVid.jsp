@@ -14,11 +14,17 @@
     </head>
     <body>
         <h1>Main page</h1>
+        
+        <!-- page data-->
         <p>${USER_NAME}</p>
         <center>${SYST_MESSAGE}</center>
-        <a href="servletRegistroVid">Subir video</a>
-        <a href="reproduccion.jsp"> Watch video </a>
-        <a href="login.jsp">Salir</a>
+        
+        <!-- buttons -->
+        <p> ${GOTO_UPLOAD_VID} </p>
+        <p> ${GOTO_REPRODUCTION} </p>
+        <p> ${GOTO_LOGOUT} </p>
+        
+        <!-- table -->
         <p> ${Table} </p>
         <br>
         <br>

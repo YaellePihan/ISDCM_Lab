@@ -16,6 +16,7 @@
     <form action="servletRegistroVid?uploadvid" method="post">
     <ul>
         <center>${SYST_MESSAGE}</center>
+        <a>${USER_NAME}</a>
         <br>
                 
         <li>
@@ -47,6 +48,6 @@
         <button type="submit">Subir Video</button>
     </ul>
     </form>
-    <center> <a href="servletListadoVid">Cancelar</a> </center>
+    <center> ${GO_BACK} </center>
     </body>
 </html>
