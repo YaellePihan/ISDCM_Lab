@@ -13,16 +13,14 @@
         <link rel="stylesheet" href="style1.css">
     </head>
     <body>
-        <h1>Main page</h1>
-        
-        <!-- page data-->
-        <p>${USER_NAME}</p>
-        <center>${SYST_MESSAGE}</center>
+        <h2>Video List</h2>
         
         <!-- buttons -->
-        <p> ${GOTO_UPLOAD_VID} </p>
-        <p> ${GOTO_REPRODUCTION} </p>
-        <p> ${GOTO_LOGOUT} </p>
+        <p> [ ${GOTO_UPLOAD_VID} ] [ ${GOTO_REPRODUCTION} ] [ ${GOTO_LOGOUT} ]</p>
+        
+        <!-- page and user data-->
+        <center>${SYST_MESSAGE}</center>
+        <p>User: ${USER_NAME}</p>
         
         <!-- table -->
         <p> ${Table} </p>
@@ -30,14 +28,3 @@
         <br>
     </body>
 </html>
-
-
-<head>
-
-  <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
-  <!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
-</head>
-
-<body>
-
-</body>

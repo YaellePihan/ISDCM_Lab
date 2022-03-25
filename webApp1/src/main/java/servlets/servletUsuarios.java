@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import java.io.IOException;
@@ -14,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.RequestDispatcher;
-//import javax.servlet.http.Cookie;
 
 import usuario.usuario;
 
@@ -29,10 +23,6 @@ public class servletUsuarios extends HttpServlet {
             if (user.is_user_in_db(user_name, user_pass))
             {
                 RequestDispatcher reqDisp = req.getRequestDispatcher("servletListadoVid?id=" + user_name);
-                //Cookie cookie = new Cookie("userName", user_name);
-                //cookie.setMaxAge(0);
-                //cookie.setPath("/servletListadoVid");
-                //res.addCookie(cookie);
                 reqDisp.forward(req, res);
             }
             else
@@ -72,19 +62,16 @@ public class servletUsuarios extends HttpServlet {
                 if (!CheckIfEMailExist(user_email))
                 {
                     usuario user = new usuario();
-                    // Check if user is also created
-                    if (!CheckIfUserExist(user, user_nick,user_pass1))
+                    if (!CheckIfUserExist(user, user_nick,user_pass1))  // Check if user is also created
                     {
-                        // Create user class
-                        user.setNombre(user_name);
+                        user.setNombre(user_name);                      // Create user class
                         user.setApellidos(user_surnames);
                         user.setApodo(user_nick);
                         user.setContrasena(user_pass1);
                         user.setEmail(user_email);
 
-                        // Add to the DataBase
-                        String result = user.add_user_to_db();
-                        // If user succesfully created:
+                        String result = user.add_user_to_db();          // Add to the DataBase
+                        
                         RequestDispatcher reqDisp = req.getRequestDispatcher("login.jsp");
                         req.setAttribute("SYST_MESSAGE", "Created succesfully :), now can login!");
                         reqDisp.forward(req, res);
@@ -148,5 +135,4 @@ public class servletUsuarios extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
-
 }

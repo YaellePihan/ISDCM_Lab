@@ -16,7 +16,7 @@
     <form action="servletRegistroVid?uploadvid" method="post">
     <ul>
         <center>${SYST_MESSAGE}</center>
-        <a>${USER_NAME}</a>
+        <a>User: ${USER_NAME}</a>
         <br>
                 
         <li>
