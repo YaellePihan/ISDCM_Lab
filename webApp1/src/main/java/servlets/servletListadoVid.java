@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.RequestDispatcher;
-//import javax.servlet.http.Cookie;
 
 import video.ListVideos;
 import video.video;
@@ -30,7 +29,6 @@ public class servletListadoVid extends HttpServlet {
         req.setAttribute("USER_NAME", userID);
         
         req.setAttribute("GOTO_UPLOAD_VID", "<a href=\"servletRegistroVid?id=" + userID + "\">Subir video</a>");
-        req.setAttribute("GOTO_REPRODUCTION", "<a href=\"reproduccion.jsp?id=" + userID + "\"> Watch video </a>");
         req.setAttribute("GOTO_LOGOUT", "<a href=\"login.jsp\">Salir</a>");
         
         req.setAttribute("Table", CreateVideoTable());
@@ -45,8 +43,6 @@ public class servletListadoVid extends HttpServlet {
         
         req.setAttribute("USER_NAME", userID);
         req.setAttribute("GO_BACK", " <center> <a href=\"servletListadoVid?id=" + userID + "\">Cancelar</a> </center>");
-        
-        req.setAttribute("Table", CreateVideoTable());
         
         reqDisp.forward(req, res);
     }

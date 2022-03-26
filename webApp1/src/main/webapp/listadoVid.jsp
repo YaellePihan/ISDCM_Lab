@@ -13,18 +13,23 @@
         <link rel="stylesheet" href="style1.css">
     </head>
     <body>
-        <h2>Video List</h2>
         
-        <!-- buttons -->
-        <p> [ ${GOTO_UPLOAD_VID} ] [ ${GOTO_REPRODUCTION} ] [ ${GOTO_LOGOUT} ]</p>
-        
-        <!-- page and user data-->
+        <!-- page and user data + buttons -->
         <center>${SYST_MESSAGE}</center>
-        <p>User: ${USER_NAME}</p>
+        <center>User: ${USER_NAME} [${GOTO_UPLOAD_VID}] [${GOTO_REPRODUCTION}] [${GOTO_LOGOUT}]</center>
+        <br>
+        
+        <!-- searcher -->
+        <form action="servletREST" method="post">
+            <label for="video_searcher">Buscador:</label>
+            <input type="text" id="videosearch" name="video_search">
+            <button type="submit">Busca</button>
+        </form>
+        <br>
         
         <!-- table -->
+        <h3>Video List</h3>
         <p> ${Table} </p>
-        <br>
-        <br>
+        
     </body>
 </html>

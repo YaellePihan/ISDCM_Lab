@@ -9,9 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Resultados busqueda</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <center>${SYST_MESSAGE}</center>
+
+        <p>Videos encontrados:</p>
+        <p>${FOUND_VIDEOS}</p>
     </body>
 </html>

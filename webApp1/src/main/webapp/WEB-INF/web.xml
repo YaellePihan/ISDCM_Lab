@@ -32,6 +32,15 @@
         <url-pattern>/servletListadoVid</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name> servletREST </servlet-name>
+        <servlet-class> servlets.servletREST</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name> servletREST </servlet-name>
+        <url-pattern>/servletREST</url-pattern>
+    </servlet-mapping>
+    
     <!-- GENERAL CONFIG -->
     <welcome-file-list>
         <welcome-file>registroUsu.jsp</welcome-file>
