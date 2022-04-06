@@ -27,6 +27,8 @@ import java.lang.reflect.Type;
 
 import video.video;
 
+import video.ListVideos;
+
 
 @WebServlet(name = "servletREST", urlPatterns = {"/servletREST"})
 public class servletREST extends HttpServlet {
@@ -174,14 +176,20 @@ public class servletREST extends HttpServlet {
             // Get video via ID
             int index = Integer.valueOf(request.getQueryString().substring(6));
             
+            // Get video values
+            ListVideos listVideos = new ListVideos();
+            video videoToShow = listVideos.GetVideoFromID(index);
+            
             // Sum 1 view via REST
             
+            
             // Load Video page
-            out.println("<!DOCTYPE html>");
-            out.println("<html><head></head><body>");
-            out.println("LOAD VIDEO!");
-            out.print(index);
-            out.println("</body></html>");
+            RequestDispatcher reqDisp = request.getRequestDispatcher("reproduccion.jsp");
+            request.setAttribute("VID_TITLE", videoToShow.getTitulo());
+            request.setAttribute("VID_VIEWS", videoToShow.getNum_reproduccion());
+            request.setAttribute("VID_CREATION_DATE", videoToShow.getFecha_creacion());
+            request.setAttribute("VID_AUTHOR", videoToShow.getAutor());
+            reqDisp.forward(request, response);
         }
     }
     
