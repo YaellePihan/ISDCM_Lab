@@ -52,12 +52,14 @@ public class VideoSearcher {
                 video.setId(id_);
                 
                 // Get date
-                //int day__ = Integer.valueOf(creation_date_.charAt(8) + creation_date_.charAt(9));
-                //int month__ = Integer.valueOf(creation_date_.charAt(8) + creation_date_.charAt(9));
+                int day_t   = Integer.valueOf("" + creation_date_.charAt(8) + creation_date_.charAt(9));
+                int month_t = Integer.valueOf("" + creation_date_.charAt(5) + creation_date_.charAt(6));
+                int year_t  = Integer.valueOf("" + creation_date_.charAt(0) + creation_date_.charAt(1) + creation_date_.charAt(2) + creation_date_.charAt(3));
 
                 // Check if values are searched
-                if (title.compareTo(title_) ==0 || author.compareTo(author_) == 0)
+                if (title.compareTo(title_) ==0 || author.compareTo(author_) == 0 || date_day == day_t || date_month == month_t || date_year == year_t)
                 {
+                    retStr += String.valueOf(day_t);
                     videosToReturn.add(video);
                 }
                 
