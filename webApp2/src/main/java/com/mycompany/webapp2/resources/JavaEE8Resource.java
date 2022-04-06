@@ -2,6 +2,7 @@ package com.mycompany.webapp2.resources;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -48,7 +49,7 @@ public class JavaEE8Resource {
     @POST
     @Consumes("application/x-www-form-urlencoded")
     @Produces("text/plain")
-    public String increaseViewsFunc()
+    public String increaseViewsFunc(@DefaultValue("noVideoID") @FormParam("VideoiD") String videoID)
     {
        String ret = "a1";
        
@@ -64,8 +65,11 @@ public class JavaEE8Resource {
                               @QueryParam("author") String author,
                               @QueryParam("date") String date)
     {
-        String ret = "a2";
-        List<video> videos;
+        String ret = " a2 ";
+        ret += title + " ";
+        ret += author + " ";
+        ret += date + " ";
+        // List<video> videos;
         
         return ret;
     }

@@ -25,8 +25,14 @@ public class servletREST extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
+            // Get Values
+            String search_title     = request.getParameter("video_search_title");
+            String search_author    = request.getParameter("video_search_author");
+            String search_date      = request.getParameter("video_search_date");
+
+            
             String urlToAsk = "http://localhost:8080/webApp2/resources/javaee8/searchVideo?";
-            String requestParameters = "Title=" + "t" + "&Author" + "a" + "&Date" + "2020";
+            String requestParameters = "title=" + search_title + "&author=" + search_author + "&date=" + search_date;
             urlToAsk += requestParameters;
             
             URL getVideoListURL = new URL(urlToAsk);

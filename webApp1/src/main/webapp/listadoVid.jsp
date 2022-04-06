@@ -21,9 +21,16 @@
         
         <!-- searcher -->
         <form action="servletREST" method="get">
-        <!-- <form action="http://localhost:8080/webApp2/resources/javaee8/searchVideo" method="get"> -->
-            <label for="video_searcher">Buscador:</label>
-            <input type="text" id="videosearch" name="video_search">
+            <label>Buscador:</label> <br>
+            <label for="video_searcher_title">Titulo:</label>
+            <input type="text" id="videosearchtitle" name="video_search_title">
+            
+            <label for="video_searcher_author">Autor:</label>
+            <input type="text" id="videosearchauthor" name="video_search_author">
+            
+            <label for="video_searcher_date">Fecha (dd/mm/yyy):</label>
+            <input type="text" id="videosearchdate" name="video_search_date">
+            
             <button type="submit">Busca</button>
         </form>
         <br>
