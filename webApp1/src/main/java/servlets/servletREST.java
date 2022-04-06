@@ -11,11 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 //import java.io.OutputStream;
 
+import java.util.ArrayList;
+import java.util.Arrays;        // Potser es pot treure ?
+import java.util.List;
+
 import java.net.URL;
 import java.net.HttpURLConnection;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+
+import video.video;
 
 
 @WebServlet(name = "servletREST", urlPatterns = {"/servletREST"})
@@ -61,23 +71,27 @@ public class servletREST extends HttpServlet {
                 // Get Result
                 BufferedReader read = new BufferedReader(new InputStreamReader(http_connection.getInputStream(), "utf-8"));
                 String outputPart = read.readLine();
-                String finalOutput = null;
+                String finalOutput = "";
                 while(outputPart != null)
                 {
-                    finalOutput += outputPart + "<br>";
+                    finalOutput += outputPart;
                     outputPart = read.readLine();
                 }
-
+                
+                List<video> videosFound = new ArrayList();
+                Gson gson = new Gson();
+                Type classOfT_VideoList = new TypeToken<List<video>>(){}.getType();
+                videosFound = gson.fromJson(finalOutput, classOfT_VideoList);
+                
                 // tmp: print results
-                out.println("<!DOCTYPE html>");
-                out.println("<html><head></head><body>");
-                out.println("." + search_date_d + ".");
-                out.println(finalOutput);
-                out.println("</body></html>");
+                //out.println("<!DOCTYPE html>");
+                //out.println("<html><head></head><body>");
+                //out.println(finalOutput);
+                //out.println("</body></html>");
                
-                //RequestDispatcher reqDisp = request.getRequestDispatcher("busqueda.jsp");
-                //request.setAttribute("FOUND_VIDEOS", GenerateTableOfVideos(request, response));
-                //reqDisp.forward(request, response);
+                RequestDispatcher reqDisp = request.getRequestDispatcher("busqueda.jsp");
+                request.setAttribute("FOUND_VIDEOS", GenerateTableOfVideos(videosFound));
+                reqDisp.forward(request, response);
             }
         }
     }
@@ -124,29 +138,28 @@ public class servletREST extends HttpServlet {
         }
     }
     
-    String GenerateTableOfVideos(HttpServletRequest request, HttpServletResponse response)
+    String GenerateTableOfVideos(List<video> videos)
     {
         String res = "";
         // Create list
         res += "<ul>";
         // Get number of elements
-        int totalVids = 1;
-        for (int i = 0; i < totalVids; i++)
+        for (int i = 0; i < videos.size(); i++)
         {
-            res += GenerateElementVideo("Na", "aut", "des", 4, "link");
+            res += GenerateElementVideo(videos.get(i).getTitulo(), videos.get(i).getAutor(), videos.get(i).getDescripcion(),
+                    videos.get(i).getNum_reproduccion(), videos.get(i).getFecha_creacion(), videos.get(i).getId());
         }
         res += "</ul>";
         return res;
     }
     
-    String GenerateElementVideo(String vidName, String vidAuthor, String vidDescription, int vidViews, String vidLink)
+    String GenerateElementVideo(String vidName, String vidAuthor, String vidDescription, int vidViews, String creationDate, int id)
     {
         // TODO: El button ha de cridar un post per a pujar 1 view
         String res = "";
         res += "<li>";
         res += "<form action='http://localhost:8080/webApp2/resources/javaee8/increaseViews' method='POST'>";
         res += "<p>" + "Video Name: " + vidName + ", Video Author: " + vidAuthor + ", Video Description: " + vidDescription + ", Views: " + Integer.toString(vidViews);
-        res += ", link: " + "<a href='" + vidLink + "/'>" + "Open" + "</a>";
         res += "<input type='submit' value='Abrir'>";
         res += "</form>";
         res += "</li>";

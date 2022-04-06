@@ -66,7 +66,7 @@ public class JavaEE8Resource {
                               @QueryParam("date_m") String date_m,
                               @QueryParam("date_y") String date_y)
     {
-        String ret = " GET Search Video... ";
+        String ret = "";//" GET Search Video... ";
 
         VideoSearcher vS = new VideoSearcher();
         int date_d_int = Integer.valueOf(date_d);

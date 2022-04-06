@@ -61,9 +61,7 @@ public class VideoSearcher {
                 {
                     retStr += String.valueOf(day_t);
                     videosToReturn.add(video);
-                }
-                
-                
+                }                
             }
         }catch (SQLException e) {
             System.out.println(Arrays.toString(e.getStackTrace()));
