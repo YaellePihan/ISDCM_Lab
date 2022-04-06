@@ -8,7 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import javax.servlet.RequestDispatcher;
+//import javax.servlet.RequestDispatcher;
+//import java.io.OutputStream;
+
+import java.net.URL;
+import java.net.HttpURLConnection;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 
 @WebServlet(name = "servletREST", urlPatterns = {"/servletREST"})
 public class servletREST extends HttpServlet {
@@ -17,6 +25,35 @@ public class servletREST extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
+            String urlToAsk = "http://localhost:8080/webApp2/resources/javaee8/searchVideo?";
+            String requestParameters = "Title=" + "t" + "&Author" + "a" + "&Date" + "2020";
+            urlToAsk += requestParameters;
+            
+            URL getVideoListURL = new URL(urlToAsk);
+            HttpURLConnection http_connection = (HttpURLConnection)getVideoListURL.openConnection();
+            http_connection.setRequestMethod("GET");
+            http_connection.setRequestProperty("Accept", "text/plain");
+            
+            if(http_connection.getResponseCode() != 200)
+            {
+                // Add error message -- Isaac
+            }
+                        
+            BufferedReader read = new BufferedReader(new InputStreamReader(http_connection.getInputStream(), "utf-8"));
+            String outputPart = read.readLine();
+            String finalOutput = null;
+            while(outputPart != null)
+            {
+                finalOutput += outputPart;
+                outputPart = read.readLine();
+            }
+            
+            out.println("<!DOCTYPE html>");
+            out.println("<html><head></head><body>");
+            out.println(finalOutput);
+            out.println("</body></html>");
+            
+            
         }
     }
     
@@ -24,15 +61,13 @@ public class servletREST extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            // Generate video list (with search parameters)
         response.setContentType("text/html");
 
-        RequestDispatcher reqDisp = request.getRequestDispatcher("busqueda.jsp");
-        
-        // request.setAttribute("FOUND_VIDEOS", GenerateTableOfVideos(request, response));        
-        
-        reqDisp.forward(request, response);
-            
+        //RequestDispatcher reqDisp = request.getRequestDispatcher("busqueda.jsp");
+        //request.setAttribute("FOUND_VIDEOS", GenerateTableOfVideos(request, response));
+        //reqDisp.forward(request, response);
+        //RequestDispatcher reqDisp = request.getRequestDispatcher("http://localhost:8080/webApp2/resources/javaee8/getInfo");
+        //reqDisp.forward(request, response);
         }
     }
     

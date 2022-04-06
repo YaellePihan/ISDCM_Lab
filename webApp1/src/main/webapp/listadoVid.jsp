@@ -20,7 +20,8 @@
         <br>
         
         <!-- searcher -->
-        <form action="servletREST" method="post">
+        <form action="servletREST" method="get">
+        <!-- <form action="http://localhost:8080/webApp2/resources/javaee8/searchVideo" method="get"> -->
             <label for="video_searcher">Buscador:</label>
             <input type="text" id="videosearch" name="video_search">
             <button type="submit">Busca</button>
