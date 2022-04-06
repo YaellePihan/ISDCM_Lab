@@ -28,13 +28,16 @@ public class servletREST extends HttpServlet {
             // Get Values
             String search_title     = request.getParameter("video_search_title");
             String search_author    = request.getParameter("video_search_author");
-            String search_date      = request.getParameter("video_search_date");
+            String search_date_d    = request.getParameter("video_search_date_day");
+            String search_date_m    = request.getParameter("video_search_date_month");
+            String search_date_y    = request.getParameter("video_search_date_year");
 
-            
+            // Generate URL
             String urlToAsk = "http://localhost:8080/webApp2/resources/javaee8/searchVideo?";
-            String requestParameters = "title=" + search_title + "&author=" + search_author + "&date=" + search_date;
+            String requestParameters = "title=" + search_title + "&author=" + search_author + "&date_d=" + search_date_d + "&date_m=" + search_date_m + "&date_y=" + search_date_y;
             urlToAsk += requestParameters;
             
+            // Create connection
             URL getVideoListURL = new URL(urlToAsk);
             HttpURLConnection http_connection = (HttpURLConnection)getVideoListURL.openConnection();
             http_connection.setRequestMethod("GET");
@@ -42,24 +45,24 @@ public class servletREST extends HttpServlet {
             
             if(http_connection.getResponseCode() != 200)
             {
-                // Add error message -- Isaac
+                // TODO: Add error message
             }
-                        
+            
+            // Get Result
             BufferedReader read = new BufferedReader(new InputStreamReader(http_connection.getInputStream(), "utf-8"));
             String outputPart = read.readLine();
             String finalOutput = null;
             while(outputPart != null)
             {
-                finalOutput += outputPart;
+                finalOutput += outputPart + "<br>";
                 outputPart = read.readLine();
             }
             
+            // tmp: print results
             out.println("<!DOCTYPE html>");
             out.println("<html><head></head><body>");
             out.println(finalOutput);
             out.println("</body></html>");
-            
-            
         }
     }
     
@@ -71,8 +74,6 @@ public class servletREST extends HttpServlet {
 
         //RequestDispatcher reqDisp = request.getRequestDispatcher("busqueda.jsp");
         //request.setAttribute("FOUND_VIDEOS", GenerateTableOfVideos(request, response));
-        //reqDisp.forward(request, response);
-        //RequestDispatcher reqDisp = request.getRequestDispatcher("http://localhost:8080/webApp2/resources/javaee8/getInfo");
         //reqDisp.forward(request, response);
         }
     }

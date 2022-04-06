@@ -28,8 +28,14 @@
             <label for="video_searcher_author">Autor:</label>
             <input type="text" id="videosearchauthor" name="video_search_author">
             
-            <label for="video_searcher_date">Fecha (dd/mm/yyy):</label>
-            <input type="text" id="videosearchdate" name="video_search_date">
+            <label for="video_searcher_date_day">Fecha (dia):</label>
+            <input type="text" id="videosearchdate_day" name="video_search_date_day">
+            
+            <label for="video_searcher_date_month">Fecha (mes):</label>
+            <input type="text" id="videosearchdate_month" name="video_search_date_month">
+            
+            <label for="video_searcher_date_year">Fecha (año):</label>
+            <input type="text" id="videosearchdate_year" name="video_search_date_year">
             
             <button type="submit">Busca</button>
         </form>
