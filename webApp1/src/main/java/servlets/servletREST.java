@@ -99,8 +99,8 @@ public class servletREST extends HttpServlet {
     boolean CheckDateValues(String d, String m, String y)
     {
         boolean ret = true;
-        
-        if (!(d.compareTo("1") == 0 || d.compareTo("2") == 0 || d.compareTo("3") == 0 || d.compareTo("4") == 0 || d.compareTo("5") == 0 || d.compareTo("6") == 0
+        // TODO: Check if its empty! IN PROGRESS
+        if (!(d.isEmpty() || d.compareTo("1") == 0 || d.compareTo("2") == 0 || d.compareTo("3") == 0 || d.compareTo("4") == 0 || d.compareTo("5") == 0 || d.compareTo("6") == 0
                  || d.compareTo("7") == 0 || d.compareTo("8") == 0 || d.compareTo("9") == 0 || d.compareTo("10") == 0 || d.compareTo("11") == 0 || d.compareTo("12") == 0
                  || d.compareTo("13") == 0 || d.compareTo("14") == 0 || d.compareTo("15") == 0 || d.compareTo("16") == 0 || d.compareTo("17") == 0 || d.compareTo("18") == 0
                  || d.compareTo("19") == 0 || d.compareTo("20") == 0 || d.compareTo("21") == 0 || d.compareTo("22") == 0 || d.compareTo("23") == 0 || d.compareTo("24") == 0
@@ -110,17 +110,19 @@ public class servletREST extends HttpServlet {
             ret = false;
         }
         
-        if (!(m.compareTo("1") == 0 || m.compareTo("2") == 0 || m.compareTo("3") == 0 || m.compareTo("4") == 0 || m.compareTo("5") == 0 || m.compareTo("6") == 0 || 
+        if (!(m.isEmpty() || m.compareTo("1") == 0 || m.compareTo("2") == 0 || m.compareTo("3") == 0 || m.compareTo("4") == 0 || m.compareTo("5") == 0 || m.compareTo("6") == 0 || 
                 m.compareTo("7") == 0 || m.compareTo("8") == 0 || m.compareTo("9") == 0 || m.compareTo("10") == 0 || m.compareTo("11") == 0 || m.compareTo("12") == 0))
         {
             ret = false;
         }
-        
-        try{
-            Integer.parseInt(y);
-        }catch(NumberFormatException e)
+        if (!y.isEmpty())
         {
-            ret = false;
+            try{
+                Integer.parseInt(y);
+            }catch(NumberFormatException e)
+            {
+                ret = false;
+            }
         }
         
         return ret;
@@ -143,7 +145,6 @@ public class servletREST extends HttpServlet {
         String res = "";
         // Create list
         res += "<ul>";
-        // Get number of elements
         for (int i = 0; i < videos.size(); i++)
         {
             res += GenerateElementVideo(videos.get(i).getTitulo(), videos.get(i).getAutor(), videos.get(i).getDescripcion(),
@@ -155,15 +156,33 @@ public class servletREST extends HttpServlet {
     
     String GenerateElementVideo(String vidName, String vidAuthor, String vidDescription, int vidViews, String creationDate, int id)
     {
-        // TODO: El button ha de cridar un post per a pujar 1 view
         String res = "";
         res += "<li>";
-        res += "<form action='http://localhost:8080/webApp2/resources/javaee8/increaseViews' method='POST'>";
+        res += "<form action='servletREST?VidID=" + id +  "' method='POST'>";
         res += "<p>" + "Video Name: " + vidName + ", Video Author: " + vidAuthor + ", Video Description: " + vidDescription + ", Views: " + Integer.toString(vidViews);
         res += "<input type='submit' value='Abrir'>";
         res += "</form>";
         res += "</li>";
         return res;
+    }
+    
+    protected void processRequestPostGoVideo(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            
+            // Get video via ID
+            int index = Integer.valueOf(request.getQueryString().substring(6));
+            
+            // Sum 1 view via REST
+            
+            // Load Video page
+            out.println("<!DOCTYPE html>");
+            out.println("<html><head></head><body>");
+            out.println("LOAD VIDEO!");
+            out.print(index);
+            out.println("</body></html>");
+        }
     }
     
     // =======================================
@@ -179,7 +198,15 @@ public class servletREST extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequestPost(request, response);
+        String queryName = request.getQueryString().substring(0, 5);
+        if(queryName.compareTo("VidID") == 0)
+        {
+            processRequestPostGoVideo(request, response);
+        }
+        else
+        {
+            processRequestPost(request, response);
+        }
     }
 
     @Override
