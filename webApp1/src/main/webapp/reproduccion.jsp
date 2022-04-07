@@ -10,8 +10,7 @@
         <center>${SYST_MESSAGE}</center>
         
         <!-- user data and buttons-->
-        <a> User: ${USER_NAME} , ${GO_BACK}</a>
-        <a href="login.jsp">Go back (old)</a>
+        <a>${GO_BACK}</a>
         <br>
         
         <!-- video reproducer -->

@@ -48,64 +48,60 @@ public class servletREST extends HttpServlet {
             
             if (!CheckDateValues(search_date_d, search_date_m, search_date_y))
             {
-                // TODO: Fix that!
-                RequestDispatcher reqDisp = request.getRequestDispatcher("listadoVid.jsp");
-                request.setAttribute("SYST_MESSAGE", "Invalid date!");
-                reqDisp.forward(request, response);
+                search_date_d = "0";
+                search_date_m = "0";
+                search_date_y = "0";
             }
-            else
+            // Correct Date if its empty
+            if (search_date_d.isEmpty())
             {
-                // Correct Date if its empty
-                if (search_date_d.isEmpty())
-                {
-                    search_date_d = "0";
-                }
-                
-                if (search_date_m.isEmpty())
-                {
-                    search_date_m = "0";
-                }
-                
-                if (search_date_y.isEmpty())
-                {
-                    search_date_y = "0";
-                }
-                
-                // Generate URL
-                String urlToAsk = "http://localhost:8080/webApp2/resources/javaee8/searchVideo?";
-                String requestParameters = "title=" + search_title + "&author=" + search_author + "&date_d=" + search_date_d + "&date_m=" + search_date_m + "&date_y=" + search_date_y;
-                urlToAsk += requestParameters;
-
-                // Create connection
-                URL getVideoListURL = new URL(urlToAsk);
-                HttpURLConnection http_connection = (HttpURLConnection)getVideoListURL.openConnection();
-                http_connection.setRequestMethod("GET");
-                http_connection.setRequestProperty("Accept", "application/json");
-
-                if(http_connection.getResponseCode() != 200)
-                {
-                    System.out.println("Error on Response code!");
-                }
-
-                // Get Result
-                BufferedReader read = new BufferedReader(new InputStreamReader(http_connection.getInputStream(), "utf-8"));
-                String outputPart = read.readLine();
-                String finalOutput = "";
-                while(outputPart != null)
-                {
-                    finalOutput += outputPart;
-                    outputPart = read.readLine();
-                }
-                
-                List<video> videosFound = new ArrayList();
-                Gson gson = new Gson();
-                Type classOfT_VideoList = new TypeToken<List<video>>(){}.getType();
-                videosFound = gson.fromJson(finalOutput, classOfT_VideoList);
-               
-                RequestDispatcher reqDisp = request.getRequestDispatcher("busqueda.jsp");
-                request.setAttribute("FOUND_VIDEOS", GenerateTableOfVideos(videosFound));
-                reqDisp.forward(request, response);
+                search_date_d = "0";
             }
+            
+            if (search_date_m.isEmpty())
+            {
+                search_date_m = "0";
+            }
+                
+            if (search_date_y.isEmpty())
+            {
+                search_date_y = "0";
+            }
+                
+            // Generate URL
+            String urlToAsk = "http://localhost:8080/webApp2/resources/javaee8/searchVideo?";
+            String requestParameters = "title=" + search_title + "&author=" + search_author + "&date_d=" + search_date_d + "&date_m=" + search_date_m + "&date_y=" + search_date_y;
+            urlToAsk += requestParameters;
+
+            // Create connection
+            URL getVideoListURL = new URL(urlToAsk);
+            HttpURLConnection http_connection = (HttpURLConnection)getVideoListURL.openConnection();
+            http_connection.setRequestMethod("GET");
+            http_connection.setRequestProperty("Accept", "application/json");
+
+            if(http_connection.getResponseCode() != 200)
+            {
+                System.out.println("Error on Response code!");
+            }
+
+            // Get Result
+            BufferedReader read = new BufferedReader(new InputStreamReader(http_connection.getInputStream(), "utf-8"));
+            String outputPart = read.readLine();
+            String finalOutput = "";
+            while(outputPart != null)
+            {
+                finalOutput += outputPart;
+                outputPart = read.readLine();
+            }
+                
+            List<video> videosFound = new ArrayList();
+            Gson gson = new Gson();
+            Type classOfT_VideoList = new TypeToken<List<video>>(){}.getType();
+            videosFound = gson.fromJson(finalOutput, classOfT_VideoList);
+               
+            RequestDispatcher reqDisp = request.getRequestDispatcher("busqueda.jsp");
+            request.setAttribute("FOUND_VIDEOS", GenerateTableOfVideos(videosFound));
+            reqDisp.forward(request, response);
         }
     }
     
@@ -198,6 +194,8 @@ public class servletREST extends HttpServlet {
             
             // Load Video page
             RequestDispatcher reqDisp = request.getRequestDispatcher("reproduccion.jsp");
+            request.setAttribute("GO_BACK", "<a href='login.jsp'>Go back</a>");
+            // servletListadoVid?id=" + user_name
             request.setAttribute("VID_TITLE", videoToShow.getTitulo());
             request.setAttribute("VID_VIEWS", viewsUpdated);
             request.setAttribute("VID_CREATION_DATE", videoToShow.getFecha_creacion());

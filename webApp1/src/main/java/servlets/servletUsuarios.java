@@ -14,7 +14,7 @@ import usuario.usuario;
 
 @WebServlet(name = "servletUsuarios", urlPatterns = {"/servletUsuarios"})
 public class servletUsuarios extends HttpServlet {
-     
+    
     public void processPostRequestLogin(HttpServletRequest req,HttpServletResponse res) throws IOException,ServletException{
         String user_name = req.getParameter("user_nick");
         String user_pass = req.getParameter("user_password");
