@@ -59,7 +59,7 @@ public class JavaEE8Resource {
     @Path("searchVideo")
     @GET
     //@Produces("application/json")
-    @Produces("text/plain")
+    @Produces("application/json")
     public String searchVideo(@QueryParam("title") String title,
                               @QueryParam("author") String author,
                               @QueryParam("date_d") String date_d,

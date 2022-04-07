@@ -80,7 +80,7 @@ public class servletREST extends HttpServlet {
                 URL getVideoListURL = new URL(urlToAsk);
                 HttpURLConnection http_connection = (HttpURLConnection)getVideoListURL.openConnection();
                 http_connection.setRequestMethod("GET");
-                http_connection.setRequestProperty("Accept", "text/plain");
+                http_connection.setRequestProperty("Accept", "application/json");
 
                 if(http_connection.getResponseCode() != 200)
                 {
