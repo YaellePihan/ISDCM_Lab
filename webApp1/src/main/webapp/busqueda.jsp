@@ -13,6 +13,7 @@
     </head>
     <body>
         <center>${SYST_MESSAGE}</center>
+        <a>User: ${USER_NAME} [${GO_BACK}]</a>
 
         <p>Videos encontrados:</p>
         <p>${FOUND_VIDEOS}</p>

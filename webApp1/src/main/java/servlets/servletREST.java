@@ -34,6 +34,8 @@ import video.ListVideos;
 @WebServlet(name = "servletREST", urlPatterns = {"/servletREST"})
 public class servletREST extends HttpServlet {
     
+    String userID_ = "";
+    
     protected void processRequestGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -45,6 +47,7 @@ public class servletREST extends HttpServlet {
             String search_date_d    = request.getParameter("video_search_date_day");
             String search_date_m    = request.getParameter("video_search_date_month");
             String search_date_y    = request.getParameter("video_search_date_year");
+            userID_                 = request.getParameter("user_id_toNext");
             
             if (!CheckDateValues(search_date_d, search_date_m, search_date_y))
             {
@@ -100,6 +103,8 @@ public class servletREST extends HttpServlet {
             videosFound = gson.fromJson(finalOutput, classOfT_VideoList);
                
             RequestDispatcher reqDisp = request.getRequestDispatcher("busqueda.jsp");
+            request.setAttribute("USER_NAME", userID_);
+            request.setAttribute("GO_BACK", "<a href='servletListadoVid?id=" + userID_ + "'>Go back</a>");
             request.setAttribute("FOUND_VIDEOS", GenerateTableOfVideos(videosFound));
             reqDisp.forward(request, response);
         }
@@ -194,7 +199,8 @@ public class servletREST extends HttpServlet {
             
             // Load Video page
             RequestDispatcher reqDisp = request.getRequestDispatcher("reproduccion.jsp");
-            request.setAttribute("GO_BACK", "<a href='login.jsp'>Go back</a>");
+            request.setAttribute("USER_NAME", userID_);
+            request.setAttribute("GO_BACK", "<a href='servletListadoVid?id=" + userID_ + "'>Go back</a>");
             // servletListadoVid?id=" + user_name
             request.setAttribute("VID_TITLE", videoToShow.getTitulo());
             request.setAttribute("VID_VIEWS", viewsUpdated);

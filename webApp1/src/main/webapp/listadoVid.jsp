@@ -16,7 +16,7 @@
         
         <!-- page and user data + buttons -->
         <center>${SYST_MESSAGE}</center>
-        <center>User: ${USER_NAME} [${GOTO_UPLOAD_VID}] [${GOTO_REPRODUCTION}] [${GOTO_LOGOUT}]</center>
+        <center>User: ${USER_NAME} [${GOTO_UPLOAD_VID}] [${GOTO_LOGOUT}]</center>
         <br>
         
         <!-- searcher -->
@@ -36,6 +36,8 @@
             
             <label for="video_searcher_date_year">Fecha (año):</label>
             <input type="text" id="videosearchdate_year" name="video_search_date_year">
+            
+            <input type="hidden" id="useridtoNext" name="user_id_toNext" value="${USER_NAME}">
             
             <button type="submit">Busca</button>
         </form>

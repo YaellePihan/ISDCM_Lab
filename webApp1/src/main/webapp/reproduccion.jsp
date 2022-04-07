@@ -10,7 +10,7 @@
         <center>${SYST_MESSAGE}</center>
         
         <!-- user data and buttons-->
-        <a>${GO_BACK}</a>
+        <a>User: ${USER_NAME} [${GO_BACK}]</a>
         <br>
         
         <!-- video reproducer -->
