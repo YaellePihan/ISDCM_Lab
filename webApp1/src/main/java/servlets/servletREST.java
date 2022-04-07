@@ -16,10 +16,12 @@ import java.util.Arrays;        // Potser es pot treure ?
 import java.util.List;
 
 import java.net.URL;
+import java.net.MalformedURLException;
 import java.net.HttpURLConnection;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -38,7 +40,7 @@ public class servletREST extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            // Get Values
+            // Get ValuesMalformedUrlException
             String search_title     = request.getParameter("video_search_title");
             String search_author    = request.getParameter("video_search_author");
             String search_date_d    = request.getParameter("video_search_date_day");
@@ -102,21 +104,28 @@ public class servletREST extends HttpServlet {
     {
         boolean ret = true;
         // TODO: Check if its empty! IN PROGRESS
-        if (!(d.isEmpty() || d.compareTo("1") == 0 || d.compareTo("2") == 0 || d.compareTo("3") == 0 || d.compareTo("4") == 0 || d.compareTo("5") == 0 || d.compareTo("6") == 0
-                 || d.compareTo("7") == 0 || d.compareTo("8") == 0 || d.compareTo("9") == 0 || d.compareTo("10") == 0 || d.compareTo("11") == 0 || d.compareTo("12") == 0
-                 || d.compareTo("13") == 0 || d.compareTo("14") == 0 || d.compareTo("15") == 0 || d.compareTo("16") == 0 || d.compareTo("17") == 0 || d.compareTo("18") == 0
-                 || d.compareTo("19") == 0 || d.compareTo("20") == 0 || d.compareTo("21") == 0 || d.compareTo("22") == 0 || d.compareTo("23") == 0 || d.compareTo("24") == 0
-                 || d.compareTo("25") == 0 || d.compareTo("26") == 0 || d.compareTo("27") == 0 || d.compareTo("28") == 0 || d.compareTo("29") == 0 || d.compareTo("30") == 0
-                 || d.compareTo("31") == 0))
+        if (!d.isEmpty())
         {
-            ret = false;
+            if (!(d.compareTo("1") == 0 || d.compareTo("2") == 0 || d.compareTo("3") == 0 || d.compareTo("4") == 0 || d.compareTo("5") == 0 || d.compareTo("6") == 0
+                     || d.compareTo("7") == 0 || d.compareTo("8") == 0 || d.compareTo("9") == 0 || d.compareTo("10") == 0 || d.compareTo("11") == 0 || d.compareTo("12") == 0
+                     || d.compareTo("13") == 0 || d.compareTo("14") == 0 || d.compareTo("15") == 0 || d.compareTo("16") == 0 || d.compareTo("17") == 0 || d.compareTo("18") == 0
+                     || d.compareTo("19") == 0 || d.compareTo("20") == 0 || d.compareTo("21") == 0 || d.compareTo("22") == 0 || d.compareTo("23") == 0 || d.compareTo("24") == 0
+                     || d.compareTo("25") == 0 || d.compareTo("26") == 0 || d.compareTo("27") == 0 || d.compareTo("28") == 0 || d.compareTo("29") == 0 || d.compareTo("30") == 0
+                     || d.compareTo("31") == 0))
+            {
+                ret = false;
+            }
         }
         
-        if (!(m.isEmpty() || m.compareTo("1") == 0 || m.compareTo("2") == 0 || m.compareTo("3") == 0 || m.compareTo("4") == 0 || m.compareTo("5") == 0 || m.compareTo("6") == 0 || 
-                m.compareTo("7") == 0 || m.compareTo("8") == 0 || m.compareTo("9") == 0 || m.compareTo("10") == 0 || m.compareTo("11") == 0 || m.compareTo("12") == 0))
+        if (!m.isEmpty())
         {
-            ret = false;
+            if (!(m.compareTo("1") == 0 || m.compareTo("2") == 0 || m.compareTo("3") == 0 || m.compareTo("4") == 0 || m.compareTo("5") == 0 || m.compareTo("6") == 0 || 
+                    m.compareTo("7") == 0 || m.compareTo("8") == 0 || m.compareTo("9") == 0 || m.compareTo("10") == 0 || m.compareTo("11") == 0 || m.compareTo("12") == 0))
+            {
+                ret = false;
+            }
         }
+        
         if (!y.isEmpty())
         {
             try{
@@ -181,16 +190,63 @@ public class servletREST extends HttpServlet {
             video videoToShow = listVideos.GetVideoFromID(index);
             
             // Sum 1 view via REST
+            String viewsUpdated = SumOneView(index);
             
             
             // Load Video page
             RequestDispatcher reqDisp = request.getRequestDispatcher("reproduccion.jsp");
             request.setAttribute("VID_TITLE", videoToShow.getTitulo());
-            request.setAttribute("VID_VIEWS", videoToShow.getNum_reproduccion());
+            request.setAttribute("VID_VIEWS", viewsUpdated);
             request.setAttribute("VID_CREATION_DATE", videoToShow.getFecha_creacion());
             request.setAttribute("VID_AUTHOR", videoToShow.getAutor());
             reqDisp.forward(request, response);
         }
+    }
+    
+    String SumOneView(int videoID)
+    {
+        String ret = "";
+        try
+        {
+            URL urlIncreaseViewREST = new URL("http://localhost:8080/webApp2/resources/javaee8/increaseViews");
+            HttpURLConnection http_connection = (HttpURLConnection)urlIncreaseViewREST.openConnection();
+            http_connection.setRequestMethod("POST");
+            http_connection.setRequestProperty("Accept", "text/plain");
+            http_connection.setDoOutput(true);
+            String param1 = "VideoID=" + videoID;
+            
+            OutputStream output = http_connection.getOutputStream();
+            output.write(param1.getBytes());
+            output.flush();
+            output.close();
+            
+            if (http_connection.getResponseCode() != 200)
+            {
+                // TODO!
+            }
+            BufferedReader read = new BufferedReader(new InputStreamReader(http_connection.getInputStream(), "utf-8"));
+            
+            String outputPart = read.readLine();
+            String finalOutput = "";
+            while(outputPart != null)
+            {
+                finalOutput += outputPart;
+                outputPart = read.readLine();
+            }
+            ret = finalOutput;
+        } catch(MalformedURLException e)
+        {
+            
+        } catch(RuntimeException e)
+        {
+            
+        } catch(IOException e)
+        {
+            
+        }
+        
+        
+        return ret;
     }
     
     // =======================================

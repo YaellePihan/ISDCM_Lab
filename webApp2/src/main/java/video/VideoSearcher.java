@@ -88,11 +88,61 @@ public class VideoSearcher {
     }
     
     public int sumView(int VideoID)
-    {
-        int ret = 0;
-        // sum 1 view to the video
+    {        
+        int nb_of_reproductions = 0;
+        int nb_rows = 0;
+        String query_count = "select count(*) from videos where id=?";
+        String query = "select * from videos where id=?";
+        String query_update = "update videos set nb_of_reproductions=? where id=?";
+        Connection c = null;
+        try{
+            // create connection to db
+            c = DriverManager.getConnection("jdbc:derby://localhost:1527/isdcm_lab_db;user=isdcm_lab_db;password=isdcm_lab_db");
+            
+            // prepare statement
+            PreparedStatement statement;
+            
+            // execute query_count
+            statement = c.prepareStatement(query_count);
+            statement.setInt(1, VideoID);
+            ResultSet r = statement.executeQuery();
+            
+            // test if r is not empty  
+            if (r.next())
+                {                   
+                    nb_rows = r.getInt(1);
+                }
+            
+            // test if r has only one row/video 
+            if (nb_rows == 1){
+                // execute query to get the video with id = id_video
+                statement = c.prepareStatement(query);
+                statement.setInt(1, VideoID);
+                r = statement.executeQuery();
+                // get nb of reproductions of the video
+                nb_of_reproductions = r.getInt("NB_OF_REPRODUCTIONS");
+                // add 1 to nb of reproductions
+                nb_of_reproductions++;                
+                
+                // execute query_update to update nb of reproductions
+                statement = c.prepareStatement(query_update);
+                statement.setInt(1, nb_of_reproductions);
+                statement.setInt(2, VideoID);
+                statement.executeUpdate();
+            }
+           
+        }catch (SQLException e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        } finally {
+            try {
+                if (c != null) 
+                    c.close();                
+            } catch (SQLException e) {
+                System.out.println(Arrays.toString(e.getStackTrace()));
+            }
+        }
         
-        // return number of views
-        return ret;
+        // return number of reproductions
+        return nb_of_reproductions;
     }
 }
