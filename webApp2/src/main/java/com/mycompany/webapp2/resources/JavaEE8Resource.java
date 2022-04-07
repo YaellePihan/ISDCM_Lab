@@ -14,38 +14,9 @@ import video.VideoSearcher;
 
 @Path("javaee8")
 public class JavaEE8Resource {
-    
-    /*
-    @GET
-    public Response ping(){
-        return Response
-                .ok("ping")
-                .build();
-    }
-    
-    @Path("getInfo")
-    @GET    
-    @Produces("text/html")
-    public String getInfo (@QueryParam("info") String info, 
-                            @QueryParam("fecha") String fecha) {
-        
-        return "<html><head></head> <body> Informaci&oacute;n recibida " + info + " en fecha " + fecha + " </body></html>";
-    }
-    
-    @Path("postInfo")   
-    @POST
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces("text/html")
-    public String postInfo (  @FormParam("info") String info, 
-                              @FormParam("fecha") String fecha) 
-    {                
-        return "<html><head></head> <body> Informaci&oacute;n recibida " + info + " en fecha " + fecha + " </body></html>";
-    }
-*/
 
     @Path("increaseViews")
     @POST
-    @Consumes("application/x-www-form-urlencoded")
     @Produces("text/plain")
     public int increaseViewsFunc(@FormParam("VideoID") int videoID)
     {
@@ -54,11 +25,9 @@ public class JavaEE8Resource {
        
        return ret;
     }
-
     
     @Path("searchVideo")
     @GET
-    //@Produces("application/json")
     @Produces("application/json")
     public String searchVideo(@QueryParam("title") String title,
                               @QueryParam("author") String author,
@@ -66,7 +35,7 @@ public class JavaEE8Resource {
                               @QueryParam("date_m") String date_m,
                               @QueryParam("date_y") String date_y)
     {
-        String ret = "";//" GET Search Video... ";
+        String ret = "";
 
         VideoSearcher vS = new VideoSearcher();
         int date_d_int = Integer.valueOf(date_d);

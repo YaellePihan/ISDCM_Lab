@@ -147,10 +147,7 @@ public int sumView(int VideoID)
             }
         }
         
-        // return number of reproductions
-        return nb_of_reproductions;
-        //return nb_of_reproductions;
-        
+        return nb_of_reproductions;        
     }
 
 }

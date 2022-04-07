@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 
 import java.util.ArrayList;
-import java.util.Arrays;        // Potser es pot treure ?
+import java.util.Arrays;
 import java.util.List;
 
 import java.net.URL;
@@ -112,7 +112,6 @@ public class servletREST extends HttpServlet {
     boolean CheckDateValues(String d, String m, String y)
     {
         boolean ret = true;
-        // TODO: Check if its empty! IN PROGRESS
         if (!d.isEmpty())
         {
             if (!(d.compareTo("1") == 0 || d.compareTo("2") == 0 || d.compareTo("3") == 0 || d.compareTo("4") == 0 || d.compareTo("5") == 0 || d.compareTo("6") == 0
