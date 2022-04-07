@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import javax.servlet.RequestDispatcher;
-//import java.io.OutputStream;
 
 import java.util.ArrayList;
 import java.util.Arrays;        // Potser es pot treure ?
@@ -69,7 +68,7 @@ public class servletREST extends HttpServlet {
 
                 if(http_connection.getResponseCode() != 200)
                 {
-                    // TODO: Add error message
+                    System.out.println("Error on Response code!");
                 }
 
                 // Get Result
@@ -86,12 +85,6 @@ public class servletREST extends HttpServlet {
                 Gson gson = new Gson();
                 Type classOfT_VideoList = new TypeToken<List<video>>(){}.getType();
                 videosFound = gson.fromJson(finalOutput, classOfT_VideoList);
-                
-                // tmp: print results
-                //out.println("<!DOCTYPE html>");
-                //out.println("<html><head></head><body>");
-                //out.println(finalOutput);
-                //out.println("</body></html>");
                
                 RequestDispatcher reqDisp = request.getRequestDispatcher("busqueda.jsp");
                 request.setAttribute("FOUND_VIDEOS", GenerateTableOfVideos(videosFound));
@@ -144,10 +137,6 @@ public class servletREST extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
         response.setContentType("text/html");
-
-        //RequestDispatcher reqDisp = request.getRequestDispatcher("busqueda.jsp");
-        //request.setAttribute("FOUND_VIDEOS", GenerateTableOfVideos(request, response));
-        //reqDisp.forward(request, response);
         }
     }
     
@@ -192,7 +181,6 @@ public class servletREST extends HttpServlet {
             // Sum 1 view via REST
             String viewsUpdated = SumOneView(index);
             
-            
             // Load Video page
             RequestDispatcher reqDisp = request.getRequestDispatcher("reproduccion.jsp");
             request.setAttribute("VID_TITLE", videoToShow.getTitulo());
@@ -222,7 +210,7 @@ public class servletREST extends HttpServlet {
             
             if (http_connection.getResponseCode() != 200)
             {
-                // TODO!
+                System.out.println("Error on Response code!");
             }
             BufferedReader read = new BufferedReader(new InputStreamReader(http_connection.getInputStream(), "utf-8"));
             
@@ -236,15 +224,14 @@ public class servletREST extends HttpServlet {
             ret = finalOutput;
         } catch(MalformedURLException e)
         {
-            
+            System.out.println(e.toString());
         } catch(RuntimeException e)
         {
-            
+            System.out.println(e.toString());
         } catch(IOException e)
         {
-            
+            System.out.println(e.toString());
         }
-        
         
         return ret;
     }

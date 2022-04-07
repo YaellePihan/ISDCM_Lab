@@ -87,7 +87,7 @@ public class VideoSearcher {
         return retStr;
     }
     
-    public int sumView(int VideoID)
+public int sumView(int VideoID)
     {        
         int nb_of_reproductions = 0;
         int nb_rows = 0;
@@ -118,9 +118,14 @@ public class VideoSearcher {
                 // execute query to get the video with id = id_video
                 statement = c.prepareStatement(query);
                 statement.setInt(1, VideoID);
-                r = statement.executeQuery();
-                // get nb of reproductions of the video
-                nb_of_reproductions = r.getInt("NB_OF_REPRODUCTIONS");
+                ResultSet r2 = statement.executeQuery();
+                if(r2.next()){
+                    // get nb of reproductions of the video
+                nb_of_reproductions = r2.getInt("NB_OF_REPRODUCTIONS");
+                }else{
+                    nb_of_reproductions= 50;
+                }
+      
                 // add 1 to nb of reproductions
                 nb_of_reproductions++;                
                 
@@ -144,5 +149,8 @@ public class VideoSearcher {
         
         // return number of reproductions
         return nb_of_reproductions;
+        //return nb_of_reproductions;
+        
     }
+
 }
