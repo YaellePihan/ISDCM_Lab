@@ -55,6 +55,22 @@ public class servletREST extends HttpServlet {
             }
             else
             {
+                // Correct Date if its empty
+                if (search_date_d.isEmpty())
+                {
+                    search_date_d = "0";
+                }
+                
+                if (search_date_m.isEmpty())
+                {
+                    search_date_m = "0";
+                }
+                
+                if (search_date_y.isEmpty())
+                {
+                    search_date_y = "0";
+                }
+                
                 // Generate URL
                 String urlToAsk = "http://localhost:8080/webApp2/resources/javaee8/searchVideo?";
                 String requestParameters = "title=" + search_title + "&author=" + search_author + "&date_d=" + search_date_d + "&date_m=" + search_date_m + "&date_y=" + search_date_y;
